@@ -2,6 +2,7 @@ class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         left = 1
         right = len(nums)-2
+        mid = 0
 
         if len(nums) == 1:
             return 0
@@ -22,4 +23,5 @@ class Solution:
                 right = mid-1
             else:
                 return mid
+        return mid
             
