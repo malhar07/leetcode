@@ -5,7 +5,7 @@ class Solution:
         for i in range(1, len(prices)):
             if prices[i] >= prices[i-1]:
                 profit += prices[i] - current
-                current = prices[i]
-            else:
-                current = prices[i]
+            #     current = prices[i]
+            # else:
+            current = prices[i]
         return profit
