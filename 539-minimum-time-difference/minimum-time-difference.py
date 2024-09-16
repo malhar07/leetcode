@@ -10,7 +10,7 @@ class Solution:
             arr.append(x)
             arr.append(1440 + x)
         # arr.append(60)
-        print(arr)
+        # print(arr)
         arr.sort()
         for i in range(1, len(arr)):
             res = min(res, arr[i] - arr[i-1])
