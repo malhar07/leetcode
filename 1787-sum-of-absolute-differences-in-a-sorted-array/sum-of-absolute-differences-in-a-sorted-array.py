@@ -8,16 +8,12 @@ class Solution:
         ind = len(nums)-2
         while ind >=0:
             pre1[ind] = nums[ind] + pre1[ind+1]
-
             pre2[len(nums)-1 - ind] = nums[len(nums)-1 - ind] + pre2[len(nums)-1 - ind - 1]
-
             ind-=1
 
         res = []
         for ind, i in enumerate(pre1):
             res.append(i - (len(nums)-ind)*nums[ind])
             res[ind] += (ind+1)*nums[ind] - pre2[ind]
-        # for ind, i in enumerate(pre2):
-        #     res[ind] += (ind+1)*nums[ind] - pre2[ind]
-        print(res)
+
         return res
