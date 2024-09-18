@@ -16,7 +16,8 @@ class Solution:
         res = []
         for ind, i in enumerate(pre1):
             res.append(i - (len(nums)-ind)*nums[ind])
-        for ind, i in enumerate(pre2):
             res[ind] += (ind+1)*nums[ind] - pre2[ind]
+        # for ind, i in enumerate(pre2):
+        #     res[ind] += (ind+1)*nums[ind] - pre2[ind]
         print(res)
         return res
