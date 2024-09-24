@@ -1,34 +1,28 @@
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        s1 = ""
-        s2 = ""
-
-        count = 0
+        res1 = ""
+        res2 = ""
         ind = len(s)-1
-
+        count = 0
         while ind >= 0:
             if s[ind] != "#":
-                if count == 0:
-                    s1+=s[ind]
-                else:
+                if count > 0:
                     count-=1
+                else:
+                    res1 += s[ind]
             else:
                 count+=1
-
             ind-=1
-        
-        count = 0
         ind = len(t)-1
-
+        count = 0
         while ind >= 0:
             if t[ind] != "#":
-                if count == 0:
-                    s2+=t[ind]
-                else:
+                if count > 0:
                     count-=1
+                else:
+                    res2 += t[ind]
             else:
                 count+=1
-
             ind-=1
-        print(s1, " ->", s2)
-        return s1==s2
+        print(res1, " ->", res2)
+        return res1 == res2
