@@ -32,4 +32,4 @@ class Solution:
             res.append(root.val)
             self.helper(root.left, res)
             self.helper(root.right, res)
-        return res
+        # return res
