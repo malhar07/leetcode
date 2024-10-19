@@ -6,26 +6,18 @@
 #         self.right = right
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-        else:
-            stack = []
-            curr = root
-            stack.append((root, 1))
-            curr = curr.left
-            height = 1
-            max_h = 1
+        stack = [[root, 1]]
+        depth = 0
+        res=0
 
-            while curr or stack:
-                while curr:
-                    stack.append((curr, height+1))
-                    height += 1
-                    max_h = max(max_h, height)
-                    curr = curr.left
-                if stack:
-                    curr, height = stack.pop()
-                    curr = curr.right
-            return max_h
+        while stack:
+            curr, depth = stack.pop()
+            if curr:
+                res = max(res, depth)
 
-
-
+                if curr.left:
+                    stack.append([curr.left, depth+1])
+                if curr.right:
+                    stack.append([curr.right, depth+1])
+        return res
+                
