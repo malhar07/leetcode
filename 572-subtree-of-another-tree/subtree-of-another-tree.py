@@ -6,8 +6,6 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        # if not root:
-        #     return
         if not root and not subRoot:
             return True
         if not root:
