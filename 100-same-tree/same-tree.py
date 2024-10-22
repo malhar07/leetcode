@@ -22,4 +22,4 @@ class Solution:
             return False
         if root1.val == root2.val:
             return True
-        return False
+        # return False
