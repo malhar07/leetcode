@@ -23,13 +23,11 @@ class Solution:
             if s[right] in chars:
                 res = max(res, right-left)
 
-                while s[left] != s[right]:
+                while s[right] in chars:
                     chars.remove(s[left])
                     left+=1
-
-                
-                chars.remove(s[left])
-                left+=1
+                # chars.remove(s[left])
+                # left+=1
 
             else:
                 chars.add(s[right])
