@@ -14,15 +14,19 @@ class Solution:
             root = TreeNode(preorder[preorder_ind])
             
 
-            ind = 0
-            while inorder[ind] != preorder[preorder_ind]:
-                ind+=1
+            # ind = 0
+            # while inorder[ind] != preorder[preorder_ind]:
+            #     ind+=1
             preorder_ind+=1
 
-            root.left = create(left, ind-1)
-            root.right = create(ind+1, right)
+            root.left = create(left, dict1[root.val]-1)
+            root.right = create(dict1[root.val]+1, right)
 
             return root
+        dict1 = {}
+
+        for ind, num in enumerate(inorder):
+            dict1[num] = ind
         
         preorder_ind = 0
         left = 0
