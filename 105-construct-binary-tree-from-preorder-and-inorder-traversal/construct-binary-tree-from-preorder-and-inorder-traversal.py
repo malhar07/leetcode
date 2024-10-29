@@ -4,72 +4,29 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-# class Solution:
-#     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-#         def create(preorder, inorder):
-#             root = preoder[0]
-
-#             ind = 0
-#             while inorder[ind] != preorder[0]:
-#                 curr+=1
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        def create(left, right):
+            nonlocal preorder_ind
+            if right<left:
+                return None
+            
+            root = TreeNode(preorder[preorder_ind])
             
 
-#             root.left = create(preorder[0:])
-#             root.right = create()
-# n stack may use  O(N)  space in the worst case (for a skewed tree).
+            ind = 0
+            while inorder[ind] != preorder[preorder_ind]:
+                ind+=1
+            preorder_ind+=1
 
-
-
-
-
-class Solution:
-
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-
-
-        def array_to_tree(left, right):
-
-            nonlocal preorder_index
-
-            # if there are no elements to construct the tree
-
-            if left > right:
-
-                return None
-
-
-            # select the preorder_index element as the root and increment it
-
-            root_value = preorder[preorder_index]
-
-            root = TreeNode(root_value)
-
-
-            preorder_index += 1
-
-
-            # build left and right subtree
-
-            # excluding inorder_index_map[root_value] element because it's the root
-
-            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)
-
-            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
-
+            root.left = create(left, ind-1)
+            root.right = create(ind+1, right)
 
             return root
+        
+        preorder_ind = 0
+        left = 0
+        right = len(inorder)-1
 
+        return create(left, right)
 
-        preorder_index = 0
-
-
-        # build a hashmap to store value -> its index relations
-
-        inorder_index_map = {}
-
-        for index, value in enumerate(inorder):
-
-            inorder_index_map[value] = index
-
-
-        return array_to_tree(0, len(preorder) - 1)
