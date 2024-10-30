@@ -14,6 +14,8 @@ class Solution:
         def dfs(crs):
             if crs in visited:
                 return False
+            if crs in path:
+                return True
             if adjlist[crs] == []:
                 if crs not in path:
                     path.append(crs)
@@ -23,8 +25,8 @@ class Solution:
             for n in adjlist[crs]:
                 if not dfs(n):
                     return False
-            if crs not in path:
-                path.append(crs)
+            # if crs not in path:
+            path.append(crs)
             visited.remove(crs)
             return True
 
