@@ -3,7 +3,8 @@ class Solution:
         adjlist = {}
         visited = set()
 
-        path = []
+        path = {}
+        pos = 0
         # loop = False
         for i in range(numCourses):
             adjlist[i] = []
@@ -12,13 +13,16 @@ class Solution:
             adjlist[crs].append(pre)
         
         def dfs(crs):
+            nonlocal pos
             if crs in visited:
                 return False
             if crs in path:
                 return True
             if adjlist[crs] == []:
                 if crs not in path:
-                    path.append(crs)
+                    path[crs] = pos
+                    pos+=1
+
                 return True
             
             visited.add(crs)
@@ -26,7 +30,8 @@ class Solution:
                 if not dfs(n):
                     return False
             # if crs not in path:
-            path.append(crs)
+            path[crs] = pos
+            pos+=1
             visited.remove(crs)
             return True
 
@@ -34,4 +39,7 @@ class Solution:
             if crs not in path:
                 if not dfs(crs):
                     return []
-        return path
+        res = [0]*numCourses
+        for crs, ind in path.items():
+            res[ind] = crs
+        return res
