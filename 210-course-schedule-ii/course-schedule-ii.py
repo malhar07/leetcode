@@ -31,6 +31,7 @@ class Solution:
             return True
 
         for crs in range(numCourses):
-            if not dfs(crs):
-                return []
+            if crs not in path:
+                if not dfs(crs):
+                    return []
         return path
