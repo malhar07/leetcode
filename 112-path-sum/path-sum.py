@@ -11,7 +11,7 @@ class Solution:
         return self.helper(root, targetSum, 0)
     def helper(self, root, target, tot):
         if not root:
-            return None
+            return
         
         left = self.helper(root.left, target, tot+root.val)
         right = self.helper(root.right, target, tot+root.val)
@@ -22,8 +22,11 @@ class Solution:
             else:
                 return False
         else:
-            if left == None:
-                return right
-            if right == None:
-                return left
-            return left or right
+            if left or right:
+                return True
+            return False
+            # if left == None:
+            #     return right
+            # if right == None:
+            #     return left
+            # return left or right
