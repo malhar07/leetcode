@@ -32,11 +32,8 @@ class Solution:
         for row in range(len(board)):
             for col in range(len(board[0])):
                 if board[row][col] == word[0]:
-                    path = set()
+                    # path = set()
                     path.add((row, col))
                     dfs(row, col, 0)
-                    # path.remove((row,col))
-                    # if dfs(row,col, 0):
-                    #     return True
+                    # path.remove((row, col))
         return self.found
-        # return False
