@@ -1,40 +1,39 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        row, col = len(grid), len(grid[0])
-        fresh = 0
         visited = set()
-        minutes = 0
         q = deque()
+        self.minutes = 0
 
-        for r in range(row):
-            for c in range(col):
-                if grid[r][c] == 2:
-                    visited.add((r,c))
-                    q.append((r,c))
-                if grid[r][c] == 1:
-                    fresh+=1
+        def bfs():
+            directions = [[0,1], [0,-1], [1,0], [-1,0]]
             
 
-        while q:
-            for i in range(len(q)):
-                r,c = q.popleft()
+            while q:
+                for i in range(len(q)):
+                    r,c  = q.popleft()
 
-                directions = [[-1,0], [1,0], [0,-1], [0,1]]
-                for dr, dc in directions:
-                    if r+dr < 0 or r+dr >=len(grid) or c+dc < 0 or c+dc >= len(grid[0]) or (r+dr,c+dc) in visited or grid[r+dr][c+dc] != 1:
-                        continue
-                    fresh-=1
-                    grid[r+dr][c+dc] = 2
-                    q.append((r+dr, c+dc))
-                    visited.add((r+dr, c+dc))
-            if q:
-                minutes+=1
-   
+                    grid[r][c] = 2
+
+                    for dr, dc in directions:
+                        if 0<= r+dr < len(grid) and 0<= c+dc < len(grid[0]) and grid[r+dr][c+dc] == 1 and (r+dr, c+dc) not in visited:
+                            q.append((r+dr, c+dc))
+                            visited.add((r+dr, c+dc))
+                
+                self.minutes+=1
+            # return minutes
+
+
+
+
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == 2:
+                    q.append((row, col))
+                    visited.add((row,col))
+        bfs()
+
         
-        # for r in range(row):
-        #     for c in range(col):
-        #         if grid[r][c] == 1:
-        #             return -1
-        if fresh > 0:
-            return -1
-        return minutes
+        for row in grid:
+            if 1 in row:
+                return -1
+        return max(0, self.minutes-1)
