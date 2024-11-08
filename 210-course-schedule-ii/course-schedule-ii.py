@@ -1,45 +1,32 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adjlist = {}
         visited = set()
+        path = set()
+        res = []
 
-        path = {}
-        pos = 0
-        # loop = False
+        adjlist = {}
         for i in range(numCourses):
             adjlist[i] = []
-        
         for crs, pre in prerequisites:
             adjlist[crs].append(pre)
-        
+
         def dfs(crs):
-            nonlocal pos
-            if crs in visited:
-                return False
             if crs in path:
+                return False
+            if crs in visited:
                 return True
-            if adjlist[crs] == []:
-                if crs not in path:
-                    path[crs] = pos
-                    pos+=1
 
-                return True
-            
             visited.add(crs)
-            for n in adjlist[crs]:
-                if not dfs(n):
-                    return False
-            # if crs not in path:
-            path[crs] = pos
-            pos+=1
-            visited.remove(crs)
-            return True
+            path.add(crs)
 
+            for pre in adjlist[crs]:
+                if not dfs(pre):
+                    return False
+            res.append(crs)
+            path.remove(crs)  
+            return True     
         for crs in range(numCourses):
-            if crs not in path:
+            if crs not in visited:
                 if not dfs(crs):
                     return []
-        res = [0]*numCourses
-        for crs, ind in path.items():
-            res[ind] = crs
         return res
