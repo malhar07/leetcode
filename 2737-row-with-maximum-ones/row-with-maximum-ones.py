@@ -10,4 +10,6 @@ class Solution:
             if count > res[1]:
                 res[0] = m
                 res[1] = count
+            if count == len(mat[m]):
+                return res
         return res
