@@ -16,7 +16,7 @@ class Solution:
 
             helper(root.left)
 
-            if root.val == self.prev:
+            if self.prev != None and root.val == self.prev:
                 self.count+=1
             else:
                 self.prev = root.val
@@ -31,6 +31,6 @@ class Solution:
 
 
             helper(root.right)
-        self.prev = 0
+        self.prev = None
         helper(root)
         return self.arr
