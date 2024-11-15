@@ -17,7 +17,7 @@ class Solution:
             helper(root.right)
         helper(root)
         #sort the array
-        arr = sorted(arr)
+        # arr = sorted(arr)
         #check difference of adjacent nodes
         min_diff = 100001
         for i in range(1, len(arr)):
