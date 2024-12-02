@@ -3,11 +3,11 @@ class Solution:
         parent = [i for i in range(len(edges)+1)]
         rank = [1]*(len(edges)+1)
         def get_parent(node):
-            p = parent[node]
+            while node != parent[node]:
+                parent[node] = parent[parent[node]]  # Path compression
+                node = parent[node]
+            return node
 
-            while p != parent[p]:
-                p = parent[p]
-            return p
 
         for x,y in edges:
             parent_x = get_parent(x)
