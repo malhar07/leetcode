@@ -4,8 +4,9 @@ class Solution:
         rank = [1]*(len(edges)+1)
         def get_parent(node):
             while node != parent[node]:
-                parent[node] = parent[parent[node]]  # Path compression
                 node = parent[node]
+                parent[node] = parent[parent[node]]  # Path compression
+                
             return node
 
 
