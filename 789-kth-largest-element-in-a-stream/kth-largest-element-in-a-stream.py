@@ -8,15 +8,6 @@ class KthLargest:
         for num in nums:
             self.add(num)
 
-        # heapq.heapify(self.arr)
-        # for i in range(self.k):
-        #     if i < len(self.nums):
-        #         self.arr.append(self.nums[i])
-        # for i in range(k,len(self.nums)):
-        #     if self.nums[i] > self.arr[0]:
-        #         heapq.heappop(self.arr)
-        #         heapq.heappush(self.arr, self.nums[i])
-
     def add(self, val: int) -> int:
         if len(self.arr) < self.k:
             heapq.heappush(self.arr, val)
