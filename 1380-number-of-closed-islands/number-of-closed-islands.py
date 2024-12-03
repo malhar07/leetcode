@@ -5,32 +5,25 @@ class Solution:
         self.count = 0
         directions = [[0,1], [0,-1], [1,0], [-1,0]]
 
-        def bfs(row, col):
-            isClosed = True
-            q = deque()
-            q.append((row,col))
+        def dfs(row, col):
+
             self.visited.add((row,col))
 
-            while q:
-                r,c = q.popleft()
+            if row in [0,m-1] or col in [0, n-1]:
+                self.isClosed = False
 
-                if r in [0, m-1] or c in [0, n-1]:
-                    isClosed = False
-                for dr, dc in directions:
-                    newr, newc = r+dr, c+dc
-                    if 0<=newr<m and 0<=newc<n and grid[newr][newc] == 0 and (newr,newc) not in self.visited:
-                        q.append((newr,newc))
-                        self.visited.add((newr,newc))
-            if isClosed:
-                self.count+=1
-            # self.count += isClosed == True
-
-
-
+            for dr, dc in directions:
+                newr, newc = row+dr, col+dc
+                if 0<=newr<m and 0<=newc<n and grid[newr][newc] == 0 and (newr,newc) not in self.visited:
+                    dfs(newr,newc)
+            
         
         for row in range(m):
             for col in range(n):
                 if grid[row][col] == 0 and (row,col) not in self.visited:
-                    print(row, " ", col)
-                    bfs(row, col)
+                    self.isClosed = True
+                    dfs(row,col)
+                    if self.isClosed:
+                        self.count+=1
+                    # self.count += self.isClosed == True
         return self.count
