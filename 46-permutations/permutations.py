@@ -9,9 +9,9 @@ class Solution:
             
             for i in range(len(res)+1):
 
-                temp = res[:i] + [nums[0]] + res[i:]
+                # temp = res[:i] + [nums[0]] + res[i:]
 
-                helper(temp, nums[1:])
+                helper(res[:i] + [nums[0]] + res[i:], nums[1:])
 
         helper([], nums)
         return ans
