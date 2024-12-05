@@ -8,11 +8,12 @@ class Solution:
                 res.append(subset[:])
                 return
             
-            helper(ind+1, subset)
-            subset.append(nums[ind])
-            helper(ind+1, subset)
+            helper(ind+1, subset[:])
 
-            subset.pop()
+            subset.append(nums[ind])
+            helper(ind+1, subset[:])
+
+            # subset.pop()
         helper(0, [])
 
         return res
