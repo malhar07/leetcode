@@ -16,8 +16,8 @@ class Solution:
             if ind == len(s):
                 res.append(pal[:])
                 return
-            if ind>= len(s):
-                return
+            # if ind>= len(s):
+            #     return
 
             for i in range(len(s[ind:])):
                 if isPal(s[ind:ind+i+1]):
