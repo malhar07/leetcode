@@ -11,11 +11,9 @@ class Solution:
             else:
                 heapq.heappush(minH, diff)
                 ladder_height += diff
-                # ladders-=1
 
                 if len(minH) > ladders:
                     ladder_height -= heapq.heappop(minH)
-                    # ladders+=1
 
                 total_height += diff
 
