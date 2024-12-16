@@ -13,11 +13,11 @@ class Solution:
         dict1 = defaultdict(int)
         for i in arr:
             dict1[i] += 1
-        minH = []
-        for key, val in dict1.items():
-            heapq.heappush(minH, [val, key])
-        while len(minH)>0 and k >= minH[0][0]:
-            k-=minH[0][0]
+        minH = list(dict1.values())
+        heapq.heapify(minH)
+
+        while len(minH)>0 and k >= minH[0]:
+            k-=minH[0]
             heapq.heappop(minH)
         return len(minH)
 
