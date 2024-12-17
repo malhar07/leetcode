@@ -6,22 +6,23 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
         res = []
         levels = []
-        if not root:
-            return res
-        def helper(root, level):
-            if len(levels) == level:
-                levels.append([])
-            
-            levels[level].append(root.val)
+        temp = []
+        levels.append(root)
+        while True:
+            for i in levels:
+                if i.left:
+                    temp.append(i.left)
+                if i.right:
+                    temp.append(i.right)
+            res.append(levels[-1].val)
 
-            if root.left:
-                helper(root.left, level+1)
-            if root.right:
-                helper(root.right, level+1)
-        helper(root, 0)
+            if not temp:
+                return res
+            else:
+                levels = temp[:]
+                temp = []
 
-        for i in levels:
-            res.append(i[-1])
-        return res
