@@ -6,10 +6,9 @@
 class Solution:
     def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
         length = 0
-        temp = head
-
         res = [None]*k
 
+        temp = head
         if not head:
             return res
 
@@ -21,24 +20,27 @@ class Solution:
         extra = length%k
 
         temp = head
-        prev = -1
+        end = -1
         
         for i in range(k):
-            dummy = temp
+            if not temp:
+                return res
+            start = temp
             for j in range(cnt):
-                if not temp:
-                    return res
-                prev = temp
+                # if not temp:
+                #     return res
+                end = temp
                 temp = temp.next
 
             if extra:
-                if not temp:
-                    return res
-                prev = temp
+                # if not temp:
+                #     return res
+                end = temp
                 temp = temp.next
                 extra-=1
-            prev.next = None
-            res[i] = dummy
+
+            end.next = None
+            res[i] = start
         return res
             
 
