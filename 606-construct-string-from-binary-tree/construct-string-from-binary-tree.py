@@ -6,27 +6,18 @@
 #         self.right = right
 class Solution:
     def tree2str(self, root: Optional[TreeNode]) -> str:
-        s = []
+        res = ""
         def helper(root):
+            nonlocal res
             if not root:
                 return
             
-
-            s.append("(")
-            s.append(str(root.val))
-            if not root.left and root.right:
-                s.append("()")
+            res += "(" + str(root.val)
             helper(root.left)
-                
-            if root.right:
-                # s.append("(")
-                helper(root.right)
-            s.append(")")
-                # s.append(")")
+            if not root.left and root.right:
+                res += '()'
 
-        
-        
+            helper((root.right))
+            res+=")"
         helper(root)
-        s = "".join (s)
-        return s[1:-1]
-        
+        return res[1:-1]
