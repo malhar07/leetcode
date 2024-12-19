@@ -5,12 +5,12 @@ class StockSpanner:
 
     def next(self, price: int) -> int:
         span = 1
-        if not self.stack or self.stack[-1][0]> price:
-            self.stack.append((price, span))
-        else:
-            while self.stack and price>=self.stack[-1][0]:
-                span+=self.stack.pop()[1]
-            self.stack.append((price, span))
+        # if not self.stack or self.stack[-1][0]> price:
+        #     self.stack.append((price, span))
+        # else:
+        while self.stack and price>=self.stack[-1][0]:
+            span+=self.stack.pop()[1]
+        self.stack.append((price, span))
         return span
 
 # Your StockSpanner object will be instantiated and called as such:
