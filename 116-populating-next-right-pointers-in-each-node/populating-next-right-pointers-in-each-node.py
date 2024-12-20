@@ -13,13 +13,12 @@ class Solution:
         arr = []
         level = [root]
         temp = []
-        def populate():
-            nonlocal level, temp
+        def populate(level, temp):
+            # nonlocal level, temp
             while level:
                 print(level)
                 if not level or level[0] == None:
                    return root
-                    # break
                 for ind in range(len(level)):
                     if ind != len(level)-1:
                         level[ind].next = level[ind+1]
@@ -28,7 +27,6 @@ class Solution:
                 
                 level = temp
                 temp = []
-        return populate()
-        # return root
+        return populate(level, temp)
 
 
