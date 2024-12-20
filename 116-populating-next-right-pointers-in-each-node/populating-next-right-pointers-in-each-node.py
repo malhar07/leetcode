@@ -16,8 +16,10 @@ class Solution:
         def populate():
             nonlocal level, temp
             while level:
+                print(level)
                 if not level or level[0] == None:
-                    return root
+                   return root
+                    # break
                 for ind in range(len(level)):
                     if ind != len(level)-1:
                         level[ind].next = level[ind+1]
@@ -26,7 +28,7 @@ class Solution:
                 
                 level = temp
                 temp = []
-        populate()
-        return root
+        return populate()
+        # return root
 
 
