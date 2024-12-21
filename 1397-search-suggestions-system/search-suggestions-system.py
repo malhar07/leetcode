@@ -5,7 +5,8 @@ class Solution:
 
         for ind, i in enumerate(searchWord):
             arr = []
-            left = 0
+            mid = 0
+            left = mid
             right = len(products)-1
             curr = -1
             #Binary search to find first word in sorted products which matches searchWord[:ind+1]
