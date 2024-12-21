@@ -1,19 +1,5 @@
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
-        # res =[]
-        # products = sorted(products)
-
-        # for ind, i in enumerate(searchWord):
-        #     arr = []
-        #     for j in products:
-        #         if len(arr) == 3:
-        #             break
-        #         if len(j) < ind+1:
-        #             continue
-        #         if searchWord[:ind+1] == j[:ind+1]:
-        #             arr.append(j)
-        #     res.append(arr)
-        # return res
         res =[]
         products = sorted(products)
 
@@ -22,6 +8,7 @@ class Solution:
             left = 0
             right = len(products)-1
             curr = -1
+            #Binary search to find first word in sorted products which matches searchWord[:ind+1]
             while left <= right:
                 mid = (left+right)//2
 
@@ -32,6 +19,7 @@ class Solution:
                 else:
                     curr = mid
                     right = mid-1
+            #if no match is found; append empty array, else check if first 3 products match the word
             if curr == -1:
                 res.append([])
             else:
