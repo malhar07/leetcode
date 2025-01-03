@@ -11,13 +11,14 @@ class Solution:
             nonlocal res
             if not root:
                 return
-            
-            res += "(" + str(root.val)
+            res+="("
+            res+=str(root.val)
+
             helper(root.left)
             if not root.left and root.right:
-                res += '()'
+                res+="()"
+            helper(root.right)
 
-            helper((root.right))
             res+=")"
         helper(root)
         return res[1:-1]
