@@ -23,14 +23,14 @@ class Solution:
             if root == None:
                 return 0
             res = 0
-            
+            if root.val >= curr:
+                res += 1
             
             left = helper(root.left, max(root.val, curr))
             right = helper(root.right, max(root.val,curr))
-            if root.val >= curr:
-                res += 1
+            
             return left+right+res
-        helper(root, -10001)
+        # helper(root, -10001)
         return helper(root, -10001)
 
             
