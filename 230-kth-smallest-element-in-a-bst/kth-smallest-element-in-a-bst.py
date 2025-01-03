@@ -9,7 +9,7 @@ class Solution:
         res = []
         def helper(root, k):
             # nonlocal res
-            if not root:
+            if not root or len(res)>=k:
                 return
             helper(root.left, k)
 
