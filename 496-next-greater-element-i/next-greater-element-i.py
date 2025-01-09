@@ -32,9 +32,6 @@ class Solution:
                         ele, ind = stack.pop()
                         greater[ind] = nums[i]
                     stack.append((nums[i], i))
-            # while stack:
-            #     ele, ind = stack.pop()
-            #     greater[ind] = -1
             return greater
 
         helper(nums2)
