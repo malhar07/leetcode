@@ -19,6 +19,10 @@ class Solution:
                         if 0<=newr<row and 0<=newc<col and board[newr][newc] == "X" and (newr,newc) not in visited:
                             visited.add((newr,newc))
                             q.append((newr,newc))
+        def check(r,c):
+            if (r-1 < 0 or board[r-1][c] == ".") and (c-1<0 or board[r][c-1]=="."):
+                return True
+            return False
             
             
         
@@ -26,6 +30,7 @@ class Solution:
             for j in range(col):
                 print(i, " ", j)
                 if board[i][j] == 'X' and (i,j) not in visited:
-                    bfs(i,j)
-                    count+=1
+                    # bfs(i,j)
+                    count+=check(i,j)
+                    # count+=1
         return count
