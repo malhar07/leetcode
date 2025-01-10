@@ -5,7 +5,10 @@ class Solution:
         col = len(board[0])
         
         def check(r,c):
-            if (r-1 < 0 or board[r-1][c] == ".") and (c-1<0 or board[r][c-1]=="."):
+            # if (r-1 < 0 or board[r-1][c] == ".") and (c-1<0 or board[r][c-1]=="."):
+            #     return True
+            # return False
+            if (r-1 < 0 or board[r-1][c] == ".") and (c+1>=col or board[r][c+1]=="."):
                 return True
             return False
             
