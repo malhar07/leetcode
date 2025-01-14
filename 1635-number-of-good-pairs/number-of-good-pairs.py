@@ -16,7 +16,9 @@ class Solution:
         dict1 = {}
         count = 0
         for i in nums:
-            if i in dict1:
-                count+= dict1[i]
+            # if i in dict1:
+                # count+= dict1[i]
             dict1[i] = dict1.get(i, 0)+1
+        for v in dict1.values():
+            count += (v*(v-1))//2
         return count
