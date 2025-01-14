@@ -2,12 +2,12 @@ class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         count = 0
 
-        dict1 = {}
+        dict1 = {0:1}
         presum = 0
         for i in nums:
             presum += i
-            if presum == k:
-                count+=1
+            # if presum == k:
+            #     count+=1
 
             
             if presum-k in dict1:
