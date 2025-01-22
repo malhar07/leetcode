@@ -3,22 +3,16 @@ class Solution:
         open_count = 0
         res = ""
         for i in s:
-            if i not in ['(', ')']:
-                res+=i
-            else:
-                if i == ')':
-                    if open_count <= 0:
-                        continue
-                    else:
-                        open_count-=1
-                        res+=i
+            if i == ')':
+                if open_count == 0:
+                    continue
                 else:
-                    open_count += 1
-                    res += i
-        print(res, " ",open_count)
-        s= res
+                    open_count-=1
+            elif i == "(":
+                open_count += 1
+            res += i
+        s = res
         res = ""
-        ind = 0
         for i in range(len(s)-1, -1, -1):
             if s[i] != "(" or open_count == 0:
                 res+=s[i]
