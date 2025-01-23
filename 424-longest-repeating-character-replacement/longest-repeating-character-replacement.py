@@ -1,22 +1,16 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         left = 0
-        right = 0
-
+        count = [0]*26
         res = 0
-        curr = 0
+        for i in range(len(s)):
+            count[ord(s[i]) - ord('A')] += 1
+            # print(count, " ", left)
 
-        char = defaultdict(int)
-
-        while right < len(s):
-            char[s[right]] +=1
-            curr = max(curr, char[s[right]])
-
-            if (right-left+1) - curr > k:
-                res = max(res, right-left)
-                char[s[left]] -= 1
+            if ((i+1) - left) - max(count) <= k:
+                res = i+1 - left
+            else:
+                
+                count[ord(s[left]) - ord('A')] -= 1
                 left+=1
-            right += 1
-            # else:
-        return max(res, right-left)
-
+        return res
