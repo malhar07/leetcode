@@ -1,16 +1,17 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         left = 0
-        count = [0]*26
+        dict1 = defaultdict(int)
+        curr = 0
         res = 0
         for i in range(len(s)):
-            count[ord(s[i]) - ord('A')] += 1
-            # print(count, " ", left)
+            dict1[s[i]] += 1
+            curr = max(curr, dict1[s[i]])
 
-            if ((i+1) - left) - max(count) <= k:
+            if ((i+1) - left) - curr <= k:
                 res = i+1 - left
             else:
                 
-                count[ord(s[left]) - ord('A')] -= 1
+                dict1[s[left]] -= 1
                 left+=1
         return res
