@@ -4,15 +4,17 @@ class Solution:
         if k == 0:
             return False
         
-        for i in range(min(k, len(nums))):
+        for i in range(len(nums)):
             if nums[i] in dict1:
                 return True
             else:
                 dict1[nums[i]] = 1
-        for i in range(k, len(nums)):
-            if nums[i] in dict1:
-                return True
-            else:
+            if len(dict1)>k:
                 del dict1[nums[i-k]]
-                dict1[nums[i]] = 1
+        # for i in range(k, len(nums)):
+        #     if nums[i] in dict1:
+        #         return True
+        #     else:
+        #         del dict1[nums[i-k]]
+        #         dict1[nums[i]] = 1
         return False
