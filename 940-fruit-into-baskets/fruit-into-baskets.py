@@ -21,13 +21,6 @@ class Solution:
                             del dict1[fruits[left]]
                             count-=1
                         left += 1
-
-                    # while dict1[curr] > 0:
-                    #     # print(left, " ", dict1[curr])
-                    #     # if fruits[left] == curr:
-                        
-                    # del dict1[curr]
-                    # count-=1
             res = max(res, i-left+1)
         return res
 
