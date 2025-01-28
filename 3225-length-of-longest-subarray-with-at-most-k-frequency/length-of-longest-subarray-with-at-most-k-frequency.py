@@ -10,8 +10,7 @@ class Solution:
                 while dict1[i] != k:
                     dict1[nums[left]] -= 1
                     left+=1
-            # else:
-            print(ind, " ", left)
-            res = max(res, ind-left+1)
+            else:
+                res = max(res, ind-left+1)
         return res
                 
