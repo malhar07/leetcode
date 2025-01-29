@@ -1,9 +1,10 @@
 class Solution:
     def removeStars(self, s: str) -> str:
+        # stack
         stack = []
         for i in s:
             stack.append(i)
-        res = ""
+        res = []
         count = 0
         while stack:
             ele = stack.pop()
@@ -11,7 +12,10 @@ class Solution:
                 count+=1
             else:
                 if count == 0:
-                    res += ele
+                    res.append(ele)
                 else:
                     count-=1
-        return res[::-1]
+        return "".join(res[::-1])
+
+
+        
