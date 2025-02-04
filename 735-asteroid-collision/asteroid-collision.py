@@ -11,12 +11,12 @@ class Solution:
                     curr = stack.pop()
                     if abs(i) > curr:
                         curr = i
-                    elif abs(i) < curr:
-                        # stack.append(curr)
-                        break
-                    
                     else:
                         break
+                    # elif abs(i) < curr:
+                    #     break                 
+                    # else:
+                    #     break
                 if abs(i)!=curr:
                         stack.append(curr)
             # print(stack)
