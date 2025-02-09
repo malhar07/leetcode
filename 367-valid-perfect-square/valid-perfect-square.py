@@ -1,14 +1,14 @@
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
-        left = 0
-        right = (num+1) // 2
+        left = 1
+        right = (num//2)+1
+        while left<=right:
+            mid = (left+right)//2
 
-        while left <= right:
-            mid = (left+right) // 2
-            if mid**2 == num:
+            if mid*mid == num:
                 return True
-            elif mid**2 > num:
-                right = mid-1
-            else:
+            elif mid*mid < num:
                 left = mid+1
-        return False        
+            else:
+                right = mid-1
+        return False
