@@ -6,7 +6,7 @@ class Solution:
 
         for i in spells:
             ind = -1
-            count = 0
+            # count = 0
             left = 0
             right = n-1
             while left<=right:
