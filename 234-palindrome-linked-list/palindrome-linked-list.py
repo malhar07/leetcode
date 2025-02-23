@@ -5,45 +5,19 @@
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        # deq = deque()
-        # temp = head
-        # while temp:
-        #     deq.append(temp.val)
-        #     temp = temp.next
+        def ispal(s):
+            left = 0
+            right = len(s)-1
+
+            while left < right:
+                if s[left] != s[right]:
+                    return False
+                left +=1
+                right-=1
+            return True
         
-        # while deq:
-        #     if len(deq) >1:
-        #         if deq.popleft() != deq.pop():
-        #             return False
-        #     else:
-        #         break
-        # return True
-        # temp = head
-        # count = 0
-        # while temp:
-        #     count+=1
-        #     temp = temp.next
-        # count+=1
-        # temp = head
-        # for i in range(int(count/2)):
-        #     temp = temp.next
-        # curr = temp
-        # prev = None
-        # while curr:
-        #     t = curr.next
-        #     curr.next = prev
-        #     prev = curr
-        #     curr = t
-        # temp = prev
-        # while temp:
-        #     if temp.val != head.val:
-        #         return False
-        #     temp = temp.next
-        #     head = head.next
-        # return True
-        pal = ""
-        temp = head
-        while temp:
-            pal+=str(temp.val)
-            temp = temp.next
-        return pal == pal[::-1]
+        s = ""
+        while head:
+            s+=str(head.val)
+            head = head.next
+        return ispal(s)
