@@ -9,39 +9,18 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
         stack = []
-
         temp = head
-        
+        length = 0
         while temp:
-
             stack.append(temp)
             temp = temp.next
-        # print(stack)
-        
-        root = ListNode(0, None)
-        temp = root
-        left = head
-        right = stack.pop()
-        ind = 0
-        while left != right and left.next != right:
-            temp.next = left
-            temp = temp.next
-            left = left.next
-
-            temp.next = right
-            temp = temp.next
-            ind+=1
-            print(ind)
-            # print(left, " ->÷", right)
-
-            
-            right = stack.pop()
-
-        temp.next = left
-        temp = temp.next
-        if left == right:
-            temp.next = None
-        else:
-            temp.next = right
-            temp.next.next = None
-        return root.next
+            length+=1
+        temp = head
+        # while temp and temp!=stack[-1]:
+        for i in range(length//2):
+            curr = stack.pop()
+            curr.next = temp.next
+            temp.next = curr
+            temp = temp.next.next
+        temp.next = None
+        return head
