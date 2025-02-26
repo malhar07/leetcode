@@ -5,9 +5,9 @@
 #         self.next = next
 class Solution:
     def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
-        temp = list1
-        left = temp
-        right = temp
+        # temp = list1
+        left = list1
+        right = list1
         for i in range(b-1):
             right = right.next
         for i in range(a-1):
