@@ -31,29 +31,22 @@ class Solution:
             fast = fast.next.next
         fast = slow.next
         slow.next = None
-        # def reverse(head):
         prev = None
-        curr = fast
-        # curr = head
-        while curr:
-            temp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = temp
-        # return prev
-        # def merge(l1, l2):
-        #     head = l1
-        l2 = prev
+        # curr = fast
+
+        while fast:
+            temp = fast.next
+            fast.next = prev
+            prev = fast
+            fast = temp
+
+        # l2 = prev
         l1 = head
-        while l2:
-            curr = l2
-            l2 = l2.next
+        while prev:
+            curr = prev
+            prev = prev.next
             curr.next = l1.next
             l1.next = curr
 
             l1 = l1.next.next
         return head
-            # return head
-        # l2 = reverse(fast)
-        # print(l2)
-        # return merge(head, l2)
