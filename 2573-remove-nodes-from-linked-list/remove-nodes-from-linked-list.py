@@ -39,7 +39,6 @@ class Solution:
                 arr[i][1] = True
             else:
                 curr = arr[i][0]
-        print(arr)
         start = ListNode()
         temp = start
         start.next = head
