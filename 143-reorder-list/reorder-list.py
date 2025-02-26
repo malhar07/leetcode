@@ -16,7 +16,6 @@ class Solution:
             temp = temp.next
             length+=1
         temp = head
-        # while temp and temp!=stack[-1]:
         for i in range(length//2):
             curr = stack.pop()
             curr.next = temp.next
