@@ -1,37 +1,44 @@
-class Node:
-    def __init__(self,val = 0, next = None, prev = None):
-        self.val = val
-        self.next = next
-        self.prev = prev
 class BrowserHistory:
+    # e,h,w    k,c,i,u
+    # e,k,i,e,w
 
     def __init__(self, homepage: str):
-        new_node = Node(homepage)
-        self.curr = new_node
+        self.arr = [homepage]
+        self.left = 0
+        self.right = 0
+        self.curr = 0
 
     def visit(self, url: str) -> None:
-        new_node = Node(url)
-        self.curr.next = new_node
-        new_node.prev = self.curr
-        self.curr = new_node
+        if self.curr < self.right:
+            self.arr[self.curr+1] = url
+            self.right = self.curr+1
+            self.curr+=1
+            self.arr = self.arr[self.left:self.right+1]
+        elif self.curr == self.right:
+            self.arr.append(url)
+            self.right += 1
+            self.curr = self.right
 
     def back(self, steps: int) -> str:
-        count = 0
-        while self.curr.prev:
-            count += 1
-            self.curr = self.curr.prev
-            if count == steps:
-                return self.curr.val
-        return self.curr.val
+        if self.curr-steps >= 0:
+            val =  self.arr[self.curr-steps]
+            self.curr -= steps
+        else:
+            self.curr = 0
+            return self.arr[0]
+        return val
+
+        
 
     def forward(self, steps: int) -> str:
-        count = 0
-        while self.curr.next:
-            count += 1
-            self.curr = self.curr.next
-            if count == steps:
-                return self.curr.val
-        return self.curr.val
+        if self.curr + steps <= self.right:
+            val = self.arr[self.curr+steps]
+            self.curr += steps
+        else:
+            self.curr = self.right
+            return self.arr[self.right]
+        return val
+        
 
 
 # Your BrowserHistory object will be instantiated and called as such:
