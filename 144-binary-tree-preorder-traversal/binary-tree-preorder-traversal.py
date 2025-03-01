@@ -21,10 +21,10 @@ class Solution:
         # return res
 
         res = []
-        stack = [root]
+        stack = []
         curr = root
 
-        curr = stack.pop()
+        # curr = stack.pop()
             
 
         while stack or curr:
