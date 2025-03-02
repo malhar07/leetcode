@@ -6,20 +6,29 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        if not root and not subRoot:
-            return True
-        if not root:
-            return False
-        if self.helper(root, subRoot):
-            return True
-        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
-        
-    
-    def helper(self, p, q):
-        if not p and not q:
-            return True
-        if not p or not q:
-            return False
-        if p.val != q.val:
-            return False
-        return (self.helper(p.left, q.left) and self.helper(p.right, q.right))
+        self.res = False
+        def check(root1, root2):
+            if not root1 and not root2:
+                return True
+            if not root1 or not root2:
+                return False
+            if root1.val != root2.val:
+                return False
+            return root1.val == root2.val and check(root1.left,root2.left) and check(root1.right,root2.right)
+        # return check(root.left, subRoot)
+        def helper(r, s):
+            if not r:
+                return
+            if r.val == s.val:
+                if check(r,s):
+                    self.res = True
+                    return
+            helper(r.left,s)
+            helper(r.right,s)
+
+        helper(root, subRoot)
+        return self.res
+
+            
+
+             
