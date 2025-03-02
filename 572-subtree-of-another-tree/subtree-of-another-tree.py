@@ -17,17 +17,19 @@ class Solution:
             return root1.val == root2.val and check(root1.left,root2.left) and check(root1.right,root2.right)
         # return check(root.left, subRoot)
         def helper(r, s):
+            res = False
             if not r:
-                return
+                return False
             if r.val == s.val:
                 if check(r,s):
-                    self.res = True
-                    return
-            helper(r.left,s)
-            helper(r.right,s)
+                    # res = True
+                    return True
+            left = helper(r.left,s)
+            right = helper(r.right,s)
+            return left or right
 
-        helper(root, subRoot)
-        return self.res
+        return helper(root, subRoot)
+        # return self.res
 
             
 
