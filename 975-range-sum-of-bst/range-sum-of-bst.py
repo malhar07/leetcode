@@ -22,10 +22,17 @@ class Solution:
         stack = [root]
         while stack:
             curr = stack.pop()
-            if low<=curr.val<=high:
+            if curr.val < low:
+                if curr.right:
+                    stack.append(curr.right)
+            elif curr.val>high:
+                if curr.left:
+                    stack.append(curr.left)
+            else:
+                print(curr.val)
                 res+=curr.val
-            if curr.left:
-                stack.append(curr.left)
-            if curr.right:
-                stack.append(curr.right)
+                if curr.left:
+                    stack.append(curr.left)
+                if curr.right:
+                    stack.append(curr.right)
         return res
