@@ -17,7 +17,7 @@ class Solution:
             return root1.val == root2.val and check(root1.left,root2.left) and check(root1.right,root2.right)
         # return check(root.left, subRoot)
         def helper(r, s):
-            res = False
+            # res = False
             if not r:
                 return False
             if r.val == s.val:
