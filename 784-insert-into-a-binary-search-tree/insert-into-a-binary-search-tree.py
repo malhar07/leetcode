@@ -8,17 +8,19 @@ class Solution:
     def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
         if not root:
             return TreeNode(val)
-        curr = root
-        
-        while curr:
-            if val > curr.val:
-                prev = curr
-                curr = curr.right
-            else:
-                prev = curr
-                curr = curr.left
-        if val < prev.val:
-            prev.left = TreeNode(val)
-        else:
-            prev.right = TreeNode(val)
-        return root
+        def helper(root):
+            if not root:
+                return 
+            curr = root
+            while curr:
+                if val < curr.val:
+                    if not curr.left:
+                        curr.left = TreeNode(val)
+                        return root
+                    curr = curr.left
+                else:
+                    if not curr.right:
+                        curr.right = TreeNode(val)
+                        return root
+                    curr = curr.right
+        return  helper(root)
