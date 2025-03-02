@@ -6,27 +6,17 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        if not root:
-            return False
-        return self.helper(root, targetSum, 0)
-    def helper(self, root, target, tot):
-        if not root:
-            return
-        
-        left = self.helper(root.left, target, tot+root.val)
-        right = self.helper(root.right, target, tot+root.val)
-
-        if left == None and right == None:
-            if root.val + tot == target:
-                return True
-            else:
+        def helper(root, _sum):
+            if not root:
                 return False
-        else:
-            if left or right:
+            if _sum+root.val == targetSum and not root.left and not root.right:
                 return True
+            # return False
+
+            left = helper(root.left, _sum+root.val)
+            right = helper(root.right, _sum+root.val)
+            return left or right
+
+        if not root:
             return False
-            # if left == None:
-            #     return right
-            # if right == None:
-            #     return left
-            # return left or right
+        return helper(root,0)
