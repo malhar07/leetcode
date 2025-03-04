@@ -6,33 +6,23 @@
 #         self.right = right
 class Solution:
     def isCompleteTree(self, root: Optional[TreeNode]) -> bool:
-        levels = []
-
-        if not root.left and not root.right:
+        res = []
+        if not root:
             return True
-
-        def helper(root, level):
-            if not root:
-                return
-            if level == len(levels):
-                levels.append([])
-            levels[level].append(root)
-            helper(root.left, level+1)
-            helper(root.right, level+1)
-        helper(root, 0)
-
-        for ind in range(len(levels)-1):
-            if len(levels[ind]) != 2**ind:
-                return False
-        print(levels)
-        count = len(levels[-1])//2
-        rem = len(levels[-1])%2
-        i=0
-        for i in range(count):
-            if not levels[-2][i].left or not levels[-2][i].right:
-                return False
-        print(i , " i ")
-        if rem:
-            if not levels[-2][count].left:
-                return False
+        q = deque([root])
+        foundNull = False
+        while q:
+            temp = []
+            for i in range(len(q)):
+                curr = q.popleft()
+                if curr:
+                    if foundNull:
+                        return False
+                    temp.append(curr.val)
+                    # if curr.left:
+                    q.append(curr.left)
+                    # if curr.right:
+                    q.append(curr.right)
+                else:
+                    foundNull = True
         return True
