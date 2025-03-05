@@ -18,13 +18,9 @@ class Solution:
             self.k-=1
             if self.k == 0:
                 self.res =  root.val
+                return
 
             right = helper(root.right)
-
-            # if left != None:
-            #     return left
-            # elif right != None:
-            #     return right
-            # return None
+            
         helper(root)
         return self.res
