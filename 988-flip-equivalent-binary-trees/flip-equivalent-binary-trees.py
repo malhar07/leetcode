@@ -19,7 +19,11 @@ class Solution:
         def helper(l,r):
             if not l and not r:
                 return True
-            if check(l,r):#l.val == r.val:
+            if not l or not r:
+                return False
+            
+            # if check(l,r):#l.val == r.val:
+            if l.val == r.val:
                 return (helper(l.left,r.left) and helper(l.right,r.right) )or (helper(l.left,r.right) and helper(l.right,r.left))
             else:
                 return False
