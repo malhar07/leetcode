@@ -6,15 +6,16 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        res = [-1,-1]
-        def helper(root, height):
+        self.res = None
+        self.depth = 1
+
+        def helper(root,d):
             if not root:
-                return
-            if height>res[1]:
-                res[0] = root.val
-                res[1] = height
-            helper(root.left, height+1)
-            helper(root.right, height+1)
-        helper(root, 1)
-        return res[0]
-            
+                return 
+            if d>= self.depth:
+                self.res = root.val
+                self.depth = d
+            helper(root.right, d+1)
+            helper(root.left, d+1)
+        helper(root,1)
+        return self.res
