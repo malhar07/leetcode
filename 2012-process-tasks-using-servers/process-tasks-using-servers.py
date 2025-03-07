@@ -1,30 +1,27 @@
 class Solution:
     def assignTasks(self, servers: List[int], tasks: List[int]) -> List[int]:
-        busy = []
         res = []
         for i in range(len(servers)):
-            servers[i] = (servers[i], i)
+            servers[i] = [servers[i], i]
         heapq.heapify(servers)
-        q = deque()
-        indx = 0
 
-        time = 0
+        busy_servers = []
+        curr_time = 0
+        ind = 0
 
-        while indx<len(tasks) or busy:
-            # if time<len(tasks):
-            #     q.append(tasks[time])
-            while len(busy)>0 and busy[0][0] <= time:
-                end_time, serv, ind = heapq.heappop(busy)
-                heapq.heappush(servers, (serv, ind))
-            while len(servers) > 0 and indx<len(tasks) and indx<=time:
-                serv, ind = heapq.heappop(servers)
-                res.append(ind)
-                end_time = time + tasks[indx]
-                indx+=1
-                heapq.heappush(busy, (end_time, serv, ind))
-            if not servers and busy:
-                time = busy[0][0]   
-            else:         
-                time+=1
+            
+        for i in range(len(tasks)):
+            curr_time = max(curr_time,i)
+            if not servers:
+                curr_time = busy_servers[0][0]
+
+            while busy_servers and busy_servers[0][0] <= curr_time:
+                temp = heapq.heappop(busy_servers)
+                heapq.heappush(servers, [temp[1], temp[2]])
+            weight, indx = heapq.heappop(servers)
+            # curr = [i+tasks[i]] + 
+            res.append(indx)
+            heapq.heappush(busy_servers, [curr_time+tasks[i], weight, indx])
+
+            # curr_time += 1
         return res
-
