@@ -1,24 +1,37 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        dict1 = defaultdict(int)
-        for i in s:
-            dict1[i] += 1
-        
-        sorted_dict = sorted(dict1.items(), key = lambda x: x[1], reverse = True)
+        arr = []
+        heap = []
 
-        res = ['']*len(s)
-        ind = 0
-        if sorted_dict[0][1] > (len(s)+1)//2:
+        counts = Counter(s)
+        print(counts)
+
+        for key,val in counts.items():
+            if val > (len(s)+1)//2:
                 return ""
-        for char, count in sorted_dict:
-            
-            for i in range(count):
-                print(ind)
-                if ind >= len(s):
-                    ind = 1
-                res[ind] = char
-                ind+=2
+            heapq.heappush(heap,[-val, key])
+        print(heap)
+        while heap:
+            if len(heap) >= 2:
+                first = heapq.heappop(heap)
+                second = heapq.heappop(heap)
+
+                arr.append(first[1])
+                arr.append(second[1])
+
+                # first[0] += 1
+                if first[0] != -1:
+                    heapq.heappush(heap, [first[0]+1, first[1]])
+                if second[0] != -1:
+                    heapq.heappush(heap, [second[0]+1, second[1]])
+            else:
+                first = heapq.heappop(heap)
+                if abs(first[0])>1:
+                    return ""
+                arr.append(first[1])
+        print(arr)
+        return "".join(arr)
                 
+
         
-        return "".join(res)
-        print(sorted_dict)
+            
