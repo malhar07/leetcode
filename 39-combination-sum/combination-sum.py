@@ -1,18 +1,25 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        def helper(ind, subset, sum1):
-            if target == sum1:
-                res.append(subset[:])
-                return
 
-            if ind >= len(candidates) or sum1>target:
+        def helper(arr, _sum, ind):
+            if ind == len(candidates):
+                return 
+            if _sum == target:
+                print(arr)
+                res.append(arr[:])
+                return
+            
+            if _sum > target:
                 return 
             
-            helper(ind+1, subset[:], sum1)
+            arr.append(candidates[ind])
+            _sum += candidates[ind]
+            helper(arr, _sum, ind)
 
-            subset.append(candidates[ind])
-            helper(ind, subset[:], sum1+candidates[ind])
-            # subset.pop()
-        helper(0, [], 0)
+            temp=arr.pop()
+            _sum-=temp
+            
+            helper(arr, _sum, ind+1)
+        helper([], 0, 0)
         return res
