@@ -14,8 +14,8 @@ class Solution:
                     for dr,dc in directions:
                         newr, newc = r+dr, c+dc
 
-                        if 0<=newr<len(rooms) and 0<=newc<len(rooms[0]) and rooms[newr][newc] != -1 and (newr,newc) not in visited:
-                            rooms[newr][newc] = min(dist, rooms[newr][newc])
+                        if 0<=newr<len(rooms) and 0<=newc<len(rooms[0]) and rooms[newr][newc] not in [0,-1] and (newr,newc) not in visited:
+                            rooms[newr][newc] = dist#min(dist, rooms[newr][newc])
                             q.append((newr,newc))
                             visited.add((newr,newc))
                 dist+=1
