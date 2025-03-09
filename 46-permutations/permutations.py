@@ -11,6 +11,8 @@ class Solution:
                 return 
             
             for i in range(len(arr)+1):
-                helper(arr[:i] + [nums[ind]] + arr[i:], ind+1)
+                left = arr[:i]
+                right = arr[i:]
+                helper(left + [nums[ind]] + right, ind+1)
         helper([],0)
         return res
