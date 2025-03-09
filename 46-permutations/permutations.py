@@ -1,17 +1,16 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        # res = []
-        def helper(p, up):
-            #base case
-            if len(up) == 0:
-                # res.append(p)
-                return [p]
-            curr = []
-            for i in range(len(p)+1):
-                perm = p[0:i] + [up[0]] + p[i:]
-                curr.extend(helper(perm, up[1:]))
-            return curr
-        
-        return helper([], nums)
+        res = []
 
-
+        def helper(arr, ind):
+            
+            if len(arr) == len(nums):
+                res.append(arr[:])
+                return 
+            if ind >= len(nums):
+                return 
+            
+            for i in range(len(arr)+1):
+                helper(arr[:i] + [nums[ind]] + arr[i:], ind+1)
+        helper([],0)
+        return res
