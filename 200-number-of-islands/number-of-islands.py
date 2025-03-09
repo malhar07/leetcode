@@ -1,24 +1,25 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        visited = set()
         islands = 0
+        visited = set()
 
-        def dfs(r,c):
-            visited.add((r,c))
+        def dfs(x,y):
+            q = deque([(x,y)])
+            visited.add((x,y))
 
-            directions = [[-1,0], [1,0], [0,-1], [0,1]]
+            directions = [[0,1],[1,0],[-1,0],[0,-1]]
+
             for dr, dc in directions:
-                    if r+dr < 0 or r+dr >=len(grid) or c+dc < 0 or c+dc >= len(grid[0]) or (r+dr,c+dc) in visited or grid[r+dr][c+dc]!="1":
-                        continue
-                    visited.add((r+dr,c+dc))
-                    dfs(r+dr, c+dc)
+                newx,newy = x+ dr, y+dc
 
+                if 0<=newx<len(grid) and 0<=newy<len(grid[0]) and (newx,newy) not in visited and grid[newx][newy] == "1":       
+                    visited.add((newx, newy))
+                    dfs(newx, newy)
+                
 
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
-                if (r,c) not in visited and grid[r][c] == "1":
-                    # print(visited)
-                    dfs(r,c)
-                    islands+=1
+        for i in range(len(grid)):
+            for j in range (len(grid[0])):
+                if grid[i][j] == "1" and (i,j) not in visited:
+                    islands += 1
+                    dfs(i,j)
         return islands
-        
