@@ -10,15 +10,15 @@ class Solution:
             while q:
 
             
-                for i in range(len(q)):
+                # for i in range(len(q)):
                     # print("kkbkbkbkbkb")
-                    x,y = q.popleft()
-                    for dr, dc in directions:
-                        newx,newy = x+ dr, y+dc
-                        if 0<=newx<len(grid) and 0<=newy<len(grid[0]) and (newx,newy) not in visited and grid[newx][newy] == "1":
-                            print(newx, " ", newy)
-                            visited.add((newx, newy))
-                            q.append((newx, newy))
+                x,y = q.popleft()
+                for dr, dc in directions:
+                    newx,newy = x+ dr, y+dc
+                    if 0<=newx<len(grid) and 0<=newy<len(grid[0]) and (newx,newy) not in visited and grid[newx][newy] == "1":
+                        print(newx, " ", newy)
+                        visited.add((newx, newy))
+                        q.append((newx, newy))
                     
 
         
