@@ -4,14 +4,12 @@ class Solution:
         visited = set()
 
         def dfs(x,y):
-            q = deque([(x,y)])
+            # q = deque([(x,y)])
             visited.add((x,y))
 
             directions = [[0,1],[1,0],[-1,0],[0,-1]]
-
             for dr, dc in directions:
                 newx,newy = x+ dr, y+dc
-
                 if 0<=newx<len(grid) and 0<=newy<len(grid[0]) and (newx,newy) not in visited and grid[newx][newy] == "1":       
                     visited.add((newx, newy))
                     dfs(newx, newy)
