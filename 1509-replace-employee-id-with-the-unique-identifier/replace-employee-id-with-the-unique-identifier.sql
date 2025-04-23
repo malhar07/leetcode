@@ -7,6 +7,6 @@
 
 -- select a.unique_id, b.name from EmployeeUNI a 
 -- right join employees b on a.id = b.id;
-SELECT b.name, a.unique_id
+SELECT a.unique_id, b.name
 FROM EmployeeUNI a
 RIGHT JOIN employees b ON a.id = b.id;
