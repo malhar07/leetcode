@@ -3,10 +3,12 @@ class Solution:
         num_set = set()
 
         for ind in range(len(nums)):
-            if len(num_set)>k:
-                num_set.remove(nums[ind-k-1])
+            
 
             if nums[ind] in num_set:
                 return True
             num_set.add(nums[ind])
+
+            if len(num_set)>k:
+                num_set.remove(nums[ind-k])
         return False
