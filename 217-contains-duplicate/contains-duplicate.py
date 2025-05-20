@@ -1,10 +1,8 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        dict1 = {}
-        for i in nums:
-            if i not in dict1:
-                dict1[i] = 1
-            else:
+        num_set = set()
+        for num in nums:
+            if num in num_set:
                 return True
+            num_set.add(num)
         return False
-        
