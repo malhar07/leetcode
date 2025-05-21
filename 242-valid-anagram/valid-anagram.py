@@ -1,15 +1,14 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        if len(s)!=len(t):
-            return False
-        dict1 = [0]*26
+        char_dict = [0]*26
 
-        for i in range(len(s)):
-            dict1[ord(s[i])-97]+=1# = dict1.get(ord(s[i]-97),0)+1
-            dict1[ord(t[i])-97]-=1# = dict1.get(ord(t[i]-97),0)-1
-        print(dict1)
-        
-        for i in dict1:
-            if i != 0:
+        for char in s:
+            char_dict[ord(char)-ord('a')] +=1
+        for char in t:
+            char_dict[ord(char)-ord('a')] -=1
+        print(char_dict)
+        for char_count in char_dict:
+            if char_count != 0:
                 return False
         return True
+         
