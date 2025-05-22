@@ -9,17 +9,23 @@ class Solution:
                 dict_a[i] = 1
 
         res=[] 
-        arr = [[i[0], i[1]] for i in dict_a.items()]
-        arr = sorted(arr, key = lambda x : x[1], reverse = True)
-        print(arr)
-        for i in range(k):
-            res.append(arr[i][0])
-            # maxx=0
-            # key=-1
-            # for j in dict_a.items():
-            #     if j[1]>maxx:
-            #         maxx=j[1]
-            #         key = j[0]
-            # res.append(key)
-            # dict_a.pop(key)
-        return res
+        arr = [[] for _ in range(len(nums))]
+        # print(dict_a)
+
+        for key, val in dict_a.items():
+            # print(key, " ", val)
+            arr[val-1].append(key)
+
+        for i in range(len(arr)-1,-1,-1):
+            
+            
+            res.extend(arr[i])
+            if len(res) == k:
+                return res
+            print(res)
+        # arr = [[i[0], i[1]] for i in dict_a.items()]
+        # arr = sorted(arr, key = lambda x : x[1], reverse = True)
+        # # print(arr)
+        # for i in range(k):
+        #     res.append(arr[i][0])
+        # return res
