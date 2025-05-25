@@ -8,8 +8,8 @@ class Solution:
         product_from_right = nums[-1]
 
         for i in range(len(nums)-2, -1, -1):
-            curr_num = nums[i]
+            # curr_num = nums[i]
             res[i] = res[i]*product_from_right
-            product_from_right = product_from_right*curr_num
+            product_from_right = product_from_right*nums[i]
         return res
         
