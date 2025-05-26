@@ -3,10 +3,11 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        k%=len(nums)
-        if k != 0:
-            arr = nums[len(nums)-k:]
-            nums[k:] = nums[:len(nums)-k]
-            nums[:k] = arr
+        k %= len(nums)
+        if k == 0:
+            return
 
-            
+        temp = nums[-k:]
+        nums[-(len(nums)-k):] = nums[:len(nums)-k]
+        nums[:k] = temp
+
