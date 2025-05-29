@@ -1,20 +1,18 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        dict_a ={}
+        heap = []
+        res = []
+        dict1 = defaultdict(int)
 
         for i in nums:
-            if i in dict_a :
-                dict_a[i] +=1
-            else:
-                dict_a[i] = 1
+            dict1[i] += 1
+        for key,val in dict1.items():
+            heap.append([-val,key])
+        print(heap)
+        heapq.heapify(heap)
 
-        res=[] 
-        arr = [[] for _ in range(len(nums))]
-
-        for key, val in dict_a.items():
-            arr[val-1].append(key)
-
-        for i in range(len(arr)-1,-1,-1):
-            res.extend(arr[i])
-            if len(res) == k:
-                return res
+        for i in range(k):
+            print(i)
+            pair = heapq.heappop(heap)
+            res.append(pair[1])
+        return res
