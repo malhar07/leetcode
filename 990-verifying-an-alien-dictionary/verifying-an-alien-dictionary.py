@@ -1,32 +1,24 @@
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        ordr = {}
-        ind=1
-        for i in order:
-            ordr[i] = ind
-            ind+=1
-        print (ordr)
-        def compare(word1, word2):
-            ind1 = 0
-            ind2 = 0
-            while ind1<len(word1) and ind2 <len(word2):
-                # if word1[ind1] == word2[ind2]:
-                #     continue
-                if ordr[word1[ind2]] < ordr[word2[ind2]]:
-                    return True
-                elif ordr[word1[ind2]] > ordr[word2[ind2]]:
-                    return False
-                ind1+=1
-                ind2+=1
-            if ind2 == len(word2) and ind1 == len(word1):
+        alpha_dict = {}
+        for i in range(len(order)):
+            alpha_dict[order[i]] = i
+        
+        def compare(char1, char2):
+            print(char1)
+            if alpha_dict[char1] <= alpha_dict[char2]:
                 return True
-            if ind2 == len(word2):
-                return False
-            return True
-
-        for i in range(len(words)-1):
-            for j in range(i+1, len(words)):
-                print(words[1], " ", words[j])
-                if not compare(words[i], words[j]):
+            return False
+        
+        for i in range(1,len(words)):
+            ind = 0
+            while ind< len(words[i]) and ind < len(words[i-1]) and words[i][ind] == words[i-1][ind]:
+                ind+=1
+            if ind< len(words[i]) and ind < len(words[i-1]):
+                char1 = words[i-1][ind]
+                char2 = words[i][ind]
+                if not compare(char1, char2):
                     return False
+            if ind == len(words[i]) and ind<len(words[i-1]):
+                return False
         return True
