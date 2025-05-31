@@ -1,43 +1,35 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        res = -1
-        visited = set()
-        q = deque([])
-        self.fresh = 0
+        q = deque()
+        count = 0
+        time = 0
+        dirs = [[0,1],[1,0],[0,-1],[-1,0]]
 
-        def bfs(q):
-            directions = [[0,1],[1,0], [0,-1],[-1,0]]
-            time = 0
-
-            while q:
-                for i in range(len(q)):
-                    r,c = q.popleft()
-
-                    for dr, dc in directions:
-                        newr, newc = r+dr, c+dc
-
-                        if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and grid[newr][newc] == 1 and (newr,newc) not in visited:
-                            self.fresh-=1
-                            grid[newr][newc] = 2
-                            q.append((newr,newc))
-                            visited.add((newr,newc))
-                time+=1
-            return time
-
-        
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 2:
                     q.append((i,j))
                 if grid[i][j] == 1:
-                    self.fresh +=1
+                    count+=1
+        while q:
+            for i in range(len(q)):
+                r,c = q.popleft()
 
-        res = bfs(q)
-        # for i in range(len(grid)):
-        #     for j in range(len(grid[0])):
-        #         if grid[i][j] == 1:
-        #             return -1
-        if self.fresh>0:
+                for dr, dc in dirs:
+                    newr, newc = r+dr, c+dc
+
+                    if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and grid[newr][newc] == 1:
+                        grid[newr][newc] = 2
+                        q.append((newr,newc))
+                        count-=1
+            time+=1
+        if count > 0:
             return -1
-        return max(0, res-1)
+        else:
+            if time == 0:
+                return time
+            else:
+                return time-1
+        
+
 
