@@ -1,31 +1,30 @@
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        length = len(grid)
-        width = len(grid[0])
-        res = 0
+        max_size = 0
+        dirs = [[0,1], [1,0], [0,-1], [-1,0]]
         visited = set()
 
-        def bfs(x,y):
-            q = deque([(x,y)])
-            visited.add((x,y))
-
-            directions = [[0,1], [1,0], [0,-1], [-1,0]]
+        def bfs(r,c):
+            nei = [[r,c]]
             size = 1
 
-            while q:
-                x,y = q.popleft()
-                for dr, dc in directions:
-                    newr, newc = x+dr, y+dc
+            while nei:
+                r,c = nei.pop()
 
-                    if 0<=newr<length and 0<=newc<width and (newr,newc) not in visited and grid[newr][newc]==1:
-                        q.append((newr, newc))
-                        visited.add((newr, newc))
+                for dr, dc in dirs:
+                    newr, newc = r+dr, c+dc
+
+                    if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and grid[newr][newc]==1 and (newr,newc) not in visited:
+                        nei.append((newr,newc))
+                        visited.add((newr,newc))
                         size+=1
             return size
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    visited.add((i,j))
+                    max_size = max(max_size, bfs(i,j))
+        return max_size
 
 
-        for i in range(length):
-            for j in range(width):
-                if grid[i][j] == 1 and (i,j) not in visited:
-                    res = max(res, bfs(i,j))
-        return res
+
