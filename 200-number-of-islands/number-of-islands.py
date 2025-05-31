@@ -4,15 +4,15 @@ class Solution:
         visited = set()
         
         def bfs(r,c):
-            q = deque([(r,c)])
+            nei = [(r,c)]
 
-            while q:
-                r,c = q.popleft()
+            while nei:
+                r,c = nei.pop()
 
                 for dr,dc in dirs:
                     newr, newc = r+dr, c+dc
                     if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and (newr,newc) not in visited and grid[newr][newc] == "1":
-                        q.append((newr,newc))
+                        nei.append((newr,newc))
                         visited.add((newr,newc))
         count = 0
         for i in range(len(grid)):
