@@ -4,7 +4,6 @@ class Solution:
         visited = set()
         
         def bfs(r,c):
-            # print(visited)
             q = deque([(r,c)])
 
             while q:
@@ -13,14 +12,12 @@ class Solution:
                 for dr,dc in dirs:
                     newr, newc = r+dr, c+dc
                     if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and (newr,newc) not in visited and grid[newr][newc] == "1":
-                        # print(newr, " ", newc)
                         q.append((newr,newc))
                         visited.add((newr,newc))
         count = 0
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == "1" and (i,j) not in visited:
-                    print(i," ", j)
                     visited.add((i,j))
                     bfs(i,j)
                     count+=1
