@@ -1,36 +1,30 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adjlist = {}
+        adjlist = defaultdict(list)
+        for a,b in prerequisites:
+            adjlist[a].append(b)
         visited = set()
-        path = set()
+        seen = set()
+
+        def dfs(crs):
+            if crs not in adjlist:
+                return True
+            if crs in visited:
+                return False
+            visited.add(crs)
+            seen.add(crs)
+            
+            for nei in adjlist[crs]:
+
+                if not dfs(nei):
+                    return False
+            adjlist[crs] = []
+            visited.remove(crs)
+            return True
+
 
         for i in range(numCourses):
-            adjlist[i] = []
-        for crs, pre in prerequisites:
-            adjlist[crs].append(pre)
-        
-        def dfs(crs):
-            if crs in path:
-                return False
-            if crs in visited:
-                return True
-            
-            path.add(crs)
-            
-            for pre in adjlist[crs]:
-                if not dfs(pre):
+            if i not in seen:
+                if not dfs(i):
                     return False
-            visited.add(crs)
-            path.remove(crs)
-
-            return True
-                
-
-
-
-
-        
-        for crs in range(numCourses):
-            if not dfs(crs):
-                return False
         return True
