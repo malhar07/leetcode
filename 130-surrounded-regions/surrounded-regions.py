@@ -4,45 +4,42 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
 
-        row, col = len(board), len(board[0])
-        visited = set()
+        que = deque()
+        rows, cols = len(board), len(board[0])
+        dirs = [[0,1], [1,0], [0,-1], [-1,0]]
+
+        for i in range(rows):
+            if board[i][0] == "O":
+                que.append((i,0))
+            if board[i][cols-1] == "O":
+                que.append((i, cols-1))
+        for i in range(1,cols):
+            if board[0][i] == "O":
+                que.append((0,i))
+            if board[rows-1][i] == "O":
+                que.append((rows-1,i))
         
-        # self.flag = False
+        def bfs(que):
+            visited = set()
 
-        def bfs(r,c):
-            path = set()
-            flag = False
-            q = deque()
-            q.append((r,c))
-            path.add((r,c))
-            print(path)
-            visited.add((r,c))
+            visited.update(que)
 
-            
+            while que:
+                r,c = que.popleft()
 
-            while q:
-                for i in range(len(q)):
-                    r,c = q.popleft()
-                    if r in [0, row-1] or c in [0, col-1]:
-                        flag = True
+                for dr, dc in dirs:
+                    newr, newc = r+dr, c+dc
 
-                    directions = [[-1,0], [1,0], [0,-1], [0,1]]
-                    for dr, dc in directions:
-                        if r+dr < 0 or r+dr >=len(board) or c+dc < 0 or c+dc >= len(board[0]) or (r+dr,c+dc) in path or board[r+dr][c+dc]!="O":
-                            continue
-                        q.append((r+dr, c+dc))
-                        path.add((r+dr,c+dc))
-                        visited.add((r+dr,c+dc))
+                    if 0<=newr<rows and 0<=newc<cols and (newr,newc) not in visited and board[newr][newc]=="O":
+                        que.append((newr,newc))
+                        visited.add((newr,newc))
+            return visited
+        visited = bfs(que)
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == "O" and (i,j) not in visited:
+                    print("kkkk")
+                    board[i][j] = "X"
+        
 
-            if flag == False:
-                for r,c in path:
-                    board[r][c] = "X"
-            
-            
-            
-
-        for r in range(row):
-            for c in range(col):
-                if (r,c) not in visited and board[r][c] == "O":
-                    bfs(r,c)
         
