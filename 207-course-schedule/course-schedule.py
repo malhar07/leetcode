@@ -18,7 +18,7 @@ class Solution:
 
                 if not dfs(nei):
                     return False
-            adjlist[crs] = []
+            del adjlist[crs]
             visited.remove(crs)
             return True
 
