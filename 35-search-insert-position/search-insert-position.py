@@ -17,4 +17,4 @@ class Solution:
                 left = mid+1
             else:
                 right = mid-1
-        return res+1 if res >-1 else 0
+        return res+1
