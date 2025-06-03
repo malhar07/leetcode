@@ -11,9 +11,9 @@ class Solution:
                 return True
             if not p or not q:
                 return False
-            if p.val!=q.val:
-                return False
-            return True
+            if p.val==q.val:
+                return True
+            return False
         
         def helper(p,q):
             if not p and not q:
