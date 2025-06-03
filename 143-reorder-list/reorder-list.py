@@ -8,45 +8,48 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        # stack = []
-        # temp = head
-        # length = 0
-        # while temp:
-        #     stack.append(temp)
-        #     temp = temp.next
-        #     length+=1
-        # temp = head
-        # for i in range(length//2):
-        #     curr = stack.pop()
-        #     curr.next = temp.next
-        #     temp.next = curr
-        #     temp = temp.next.next
-        # temp.next = None
-        # return head
-        slow = head
-        fast = head
 
-        while fast.next and fast.next.next:
+        def reverse(head):
+            if not head:
+                return None
+            
+            prev = temp = None
+
+            while head:
+                temp = head.next
+                head.next = prev
+                prev = head
+                head = temp
+            return prev
+
+
+        if not head:
+            return None
+        slow = head
+        fast = slow.next
+        #1) partition list in half
+        while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
         fast = slow.next
         slow.next = None
-        prev = None
-        # curr = fast
+        
+        #2)reverse the second half
+        list2 = reverse(fast)
 
-        while fast:
-            temp = fast.next
-            fast.next = prev
-            prev = fast
-            fast = temp
+        #3) Merge Alternately
+        list1 = head
 
-        # l2 = prev
-        l1 = head
-        while prev:
-            curr = prev
-            prev = prev.next
-            curr.next = l1.next
-            l1.next = curr
+        while list1 and list2:
+            temp = list2.next
 
-            l1 = l1.next.next
+            list2.next = list1.next
+            list1.next = list2
+
+            list2 = temp
+            list1 = list1.next.next
         return head
+
+
+
+        
