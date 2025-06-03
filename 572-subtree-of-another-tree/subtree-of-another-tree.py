@@ -20,10 +20,10 @@ class Solution:
             # res = False
             if not r:
                 return False
-            # if r.val == s.val:
-            if check(r,s):
-                # res = True
-                return True
+            if r.val == s.val:
+                if check(r,s):
+                    # res = True
+                    return True
             left = helper(r.left,s)
             right = helper(r.right,s)
             return left or right
