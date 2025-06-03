@@ -6,31 +6,21 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        def create(left, right):
-            nonlocal preorder_ind
-            if right<left:
+        def buildTree(pre, ino):
+            if len(ino)==0:
                 return None
             
-            root = TreeNode(preorder[preorder_ind])
+            node = TreeNode(pre[0])
+            root = pre[0]
+            # pre = pre[1:]
+            i = 0
+            while i < len(ino) and ino[i] != root:
+                i+=1
+
+            node.left = buildTree(pre[1:i+1], ino[:i])
+            node.right = buildTree(pre[i+1:], ino[i+1:])
+
+            return node
+        return buildTree(preorder, inorder)
+
             
-
-            # ind = 0
-            # while inorder[ind] != preorder[preorder_ind]:
-            #     ind+=1
-            preorder_ind+=1
-
-            root.left = create(left, dict1[root.val]-1)
-            root.right = create(dict1[root.val]+1, right)
-
-            return root
-        dict1 = {}
-
-        for ind, num in enumerate(inorder):
-            dict1[num] = ind
-        
-        preorder_ind = 0
-        left = 0
-        right = len(inorder)-1
-
-        return create(left, right)
-
