@@ -10,23 +10,19 @@ class Solution:
             "8":"tuv",
             "9":"wxyz"
         }
-        if len(digits) == 0:
+        if not digits:
             return []
+        comb = []
         res = []
-        # print(dict1[digits[0]])
-        def helper(ind, s):
-
-            if ind >= len(digits):
-                res.append(s)
-                return
-
+        def dfs(ind):
+            if len(comb) == len(digits):
+                res.append("".join(comb))
+                return 
             for char in dict1[digits[ind]]:
-                print(char)
-                s += char
-                helper(ind+1, s)
-                s = s[:-1]
-        helper(0, "")
+                comb.append(char)
+                dfs(ind+1)
+                comb.pop()
+        dfs(0)
         return res
-
-
+            
 
