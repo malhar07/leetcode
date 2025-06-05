@@ -1,37 +1,27 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        arr = []
+        counter = defaultdict(int)
         heap = []
-
-        counts = Counter(s)
-        print(counts)
-
-        for key,val in counts.items():
-            if val > (len(s)+1)//2:
-                return ""
-            heapq.heappush(heap,[-val, key])
-        print(heap)
-        while heap:
-            if len(heap) >= 2:
-                first = heapq.heappop(heap)
-                second = heapq.heappop(heap)
-
-                arr.append(first[1])
-                arr.append(second[1])
-
-                # first[0] += 1
-                if first[0] != -1:
-                    heapq.heappush(heap, [first[0]+1, first[1]])
-                if second[0] != -1:
-                    heapq.heappush(heap, [second[0]+1, second[1]])
-            else:
-                first = heapq.heappop(heap)
-                if abs(first[0])>1:
-                    return ""
-                arr.append(first[1])
-        print(arr)
-        return "".join(arr)
-                
-
-        
-            
+        maxCount = 0
+        for c in s:
+            counter[c]+=1
+            maxCount = max(maxCount,counter[c])
+        if maxCount*2 > len(s)+1:
+            return ""
+        for k,v in counter.items():
+            heapq.heappush(heap,(-v,k))
+        res = []
+        while len(heap) > 1:
+            count1, char1 = heapq.heappop(heap)
+            count2, char2 = heapq.heappop(heap)
+            res.append(char1)
+            res.append(char2)
+            count1 += 1
+            count2+=1
+            if count1 != 0:
+                heapq.heappush(heap,(count1,char1))
+            if count2 != 0:
+                heapq.heappush(heap,(count2,char2))
+        if heap:
+            res.append(heap[0][1])
+        return "".join(res)
