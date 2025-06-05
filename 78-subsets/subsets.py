@@ -5,10 +5,11 @@ class Solution:
             if ind == len(nums):
                 res.append(arr[:])
                 return
+            
+            dfs(ind+1, arr)
             arr.append(nums[ind])
             dfs(ind+1, arr)
             arr.pop()
-            dfs(ind+1, arr)
             
         dfs(0,[])
         return res
