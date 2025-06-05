@@ -30,14 +30,13 @@ class WordDictionary:
                 if c not in curr.children:
                     return False
                 return dfs(ind + 1, curr.children[c])
-                # curr = curr.children[c]
             else:
                 for child in curr.children:
                     found = dfs(ind+1, curr.children[child])
                     if found:
                         return True
                 return False
-            return True
+            # return True
         return dfs(0,curr)
 
 
