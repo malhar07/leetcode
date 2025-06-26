@@ -1,15 +1,8 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        if n < 3:
-            return n
-        arr = [1,2]
-        step = 3
+        dp = [1]*(n+1)
+        dp[1]=1
 
-        while step<=n:
-            
-            temp = arr[1]
-            arr[1] += arr[0]
-            arr[0] = temp
-
-            step+=1
-        return arr[1]
+        for i in range(2,n+1):
+            dp[i] = dp[i-1]+dp[i-2]
+        return dp[-1]
