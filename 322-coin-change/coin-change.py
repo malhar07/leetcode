@@ -1,23 +1,19 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        res = math.inf
-        memo = {}
-        def helper(rem,count):
-            if rem<0:
-                return math.inf
-            if rem == 0:
-                return 0
-            if rem in memo:
-                return memo[rem]
-
-            res = math.inf
+        dp = [math.inf]*(amount+1)
+        dp[0] = 0
+        # coins.sort()
+        for amt in range(1,amount+1):
             for coin in coins:
-                count = 1 + helper(rem-coin, count)
-                
-                if count != math.inf:
-                    res = min(res,count)
-            memo[rem] = res
-            return res
+                if coin>amt:
+                    continue
+                dp[amt] = min(dp[amt], 1+dp[amt-coin])
+        return dp[amount] if dp[amount] != math.inf else -1
+        # def helper(rem):
+        #     if rem<0:
+        #         return math.inf
+        #     if rem == 0:
+        #         return 0
+            
+        #     for i in range(1,amount+1):
 
-        res = helper(amount,0)
-        return res if res != math.inf else -1
