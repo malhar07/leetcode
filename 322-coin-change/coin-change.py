@@ -1,12 +1,23 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [amount+1]*(amount+1)
-        dp[0] = 0
+        res = math.inf
+        memo = {}
+        def helper(rem,count):
+            if rem<0:
+                return math.inf
+            if rem == 0:
+                return 0
+            if rem in memo:
+                return memo[rem]
 
-        
-        for i in range(1, amount + 1):
+            res = math.inf
             for coin in coins:
-                if i>=coin:
-                    dp[i] = min(dp[i], 1+dp[i-coin])
+                count = 1 + helper(rem-coin, count)
+                
+                if count != math.inf:
+                    res = min(res,count)
+            memo[rem] = res
+            return res
 
-        return -1 if dp[amount] == amount + 1 else dp[amount]
+        res = helper(amount,0)
+        return res if res != math.inf else -1
