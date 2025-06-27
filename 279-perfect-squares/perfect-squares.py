@@ -8,6 +8,7 @@ class Solution:
         for i in range(2,n+1):
             for sq in range(1,101):
                 if sq**2 > i:
-                    continue
+                    break
+                    # continue
                 dp[i] = min(dp[i], 1+dp[i-sq**2])
         return dp[n]
