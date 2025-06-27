@@ -8,7 +8,7 @@ class Solution:
         dp = [0]*len(nums)
         dp[0] = nums[0]*count[nums[0]]
 
-        [2,3,4]
+        # [2,3,4]
 
         for i in range(1,len(nums)):
             prev = dp[i-1]
