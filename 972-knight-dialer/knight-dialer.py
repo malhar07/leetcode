@@ -13,18 +13,24 @@ class Solution:
             8:[1,3],
             9:[2,4]
         }
-        memo = {}
-        def dfs(num, length):
-            if length == 1:
-                return 1
-            if (num, length) not in memo:
-                
-                res = 0
-                for nei in moves[num]:
-                    res += dfs(nei, length-1)
-                memo[(num,length)] =  res
-            return memo[(num,length)]
-        ans = 0
-        for i in range(10):
-            ans+=dfs(i, n)
-        return ans % MOD
+        dp = [[1]* 10 for _ in range(2)]
+        for num in range(2, n+1):
+            for i in range(10):
+                curr = 0
+                for nei in moves[i]:
+                    curr+=dp[0][nei]
+                dp[1][i] = curr
+            dp[0] = dp[1][:]
+        return sum(dp[0]) % MOD
+
+
+
+
+
+#     1 2 3 4 5 6 7 8 9 0
+# 1   1 1 1 1 1 1 1 1 1 1
+# 2   2 2 2 3 0 3 2 2 2 2
+# 3
+# 4
+# 5
+# 6
