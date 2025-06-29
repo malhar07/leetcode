@@ -1,17 +1,16 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
-        memo = {"0":0}
-        def dfs(ind):
-            if ind == len(s):
-                return 1
-            if s[ind] == "0":
-                return 0
-            if ind not in memo:
-                res = 0
-                for i in range(ind,len(s)):
-                    if int(s[ind:i+1]) <= 26:
-                        res += dfs(i+1)
-                memo[ind] = res
-            return memo[ind]
-        return dfs(0)
-                
+        dp1 = 1
+        dp0 = 0 if s[-1] == "0" else 1
+
+        for i in range(len(s)-2,-1,-1):
+            curr = dp0
+            if s[i] == "0":
+                curr = 0
+            
+            
+            elif int(s[i:i+2]) <= 26:
+                curr += dp1
+            dp1 = dp0
+            dp0 = curr
+        return dp0
