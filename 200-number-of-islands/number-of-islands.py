@@ -8,13 +8,9 @@ class Solution:
             visited.add((r,c))
 
             for dr, dc in dirs:
-                
                 newr, newc = r+dr, c+dc
-                print(newr, newc)
 
                 if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and grid[newr][newc] == "1" and (newr,newc) not in visited:
-                    # print(newr, newc)
-                    # visited.add((newr,newc))
                     dfs(newr,newc)
 
             return 
