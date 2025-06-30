@@ -7,11 +7,20 @@ class Solution:
         # TC = 2^n 
         # SC = n for recursion stack
 
-        memo = {}
-        def helper(ind):
-            if ind >= len(questions):
-                return 0
-            if ind not in memo:
-                memo[ind] =  max(helper(ind+1), questions[ind][0] + helper(ind+1+questions[ind][1]))
-            return memo[ind]
-        return helper(0)
+        # memo = {}
+        # def helper(ind):
+        #     if ind >= len(questions):
+        #         return 0
+        #     if ind not in memo:
+        #         memo[ind] =  max(helper(ind+1), questions[ind][0] + helper(ind+1+questions[ind][1]))
+        #     return memo[ind]
+        # return helper(0)
+        max_bp = max([questions[i][1] for i in range(len(questions))])
+        print(max_bp)
+        dp = [0]*(len(questions)+max_bp+1)
+        print(dp)
+        # dp[len()]
+
+        for i in range(len(questions)-1, -1, -1):
+            dp[i] = max(dp[i+1], questions[i][0] + dp[i+1+questions[i][1]])
+        return dp[0]
