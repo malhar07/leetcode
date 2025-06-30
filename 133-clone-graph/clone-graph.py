@@ -9,31 +9,26 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        temp = node
+        node_map = {}
+        visited = set()
         if not node:
             return None
 
-        start = Node(temp.val)
-        map1 = {1:start}
-        
-        visited = set()
+        def bfs(node):
+            visited.add(node)
+            q = deque([node])
+            node_map[node] = Node(node.val)
 
-        q = deque()
-        q.append((start, temp))
-        while q:
-            curr, tmp = q.popleft()
-            # print(curr.val)
+            while q:
+                curr = q.popleft()
 
-            for nei in tmp.neighbors:
-                if (tmp.val, nei.val) not in visited:
+                for nei in curr.neighbors:
+                    if nei not in visited:
+                        node_map[nei] = Node(nei.val)
+                        q.append(nei)
+                        visited.add(nei)
+                    node_map[curr].neighbors.append(node_map[nei])
+        bfs(node)
+        return node_map[node]
+                
 
-                    visited.add((tmp.val, nei.val))
-                    if nei.val in map1:
-                        node = map1[nei.val]
-                    else:
-                        node = Node(nei.val)
-                        map1[nei.val] = node
-
-                    curr.neighbors.append(node)
-                    q.append((node, nei))
-        return start
