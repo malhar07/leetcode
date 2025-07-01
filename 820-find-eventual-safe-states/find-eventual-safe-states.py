@@ -1,37 +1,34 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        adjlist = {node:[] for node in range(len(graph))}
         terminal = set()
-        non_terminal = set()
-        # self.cycle = False
-
+        for node, nei in enumerate(graph):
+            for n in nei:
+                adjlist[node].append(n)
+        for i in range(len(graph)):
+            if adjlist[i] == []:
+                terminal.add(i)
+        path = set()
         def dfs(node):
-            if graph[node] == [] or node in terminal:
-                terminal.add(node)
+            if node in terminal:
                 return True
-
-            if node in loop or node in non_terminal:
-                print(node)
+            if node in path:
                 return False
-            
-            loop.add(node)
-            for n in graph[node]:
-                if not dfs(n):
+            path.add(node)
+            isSafe = True
+            for nei in adjlist[node]:
+                isSafe = dfs(nei) and isSafe
+                if not isSafe:
                     return False
-            terminal.add(node)
-            loop.remove(node)
-            return True
-
+            path.remove(node)
+            if isSafe:
+                terminal.add(node)
+            return isSafe
         res = []
         for i in range(len(graph)):
-            if i in terminal or i in non_terminal:
-                continue
-            loop = set()
-            if dfs(i):
-                terminal.add(i)
-                # for j in loop:
-                #     terminal.add(j)
-            else:
-                for j in loop:
-                    non_terminal.add(j)
-        terminal = sorted(list(terminal))
-        return terminal
+            if i in terminal:
+                res.append(i)
+            elif dfs(i):
+                res.append(i)
+        return res
+        
