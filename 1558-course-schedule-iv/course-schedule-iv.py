@@ -1,34 +1,25 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        adjlist = {}
+        prereq = defaultdict(set)
+        for pre, crs in prerequisites:
+            prereq[crs].add(pre)
+        visited = [False] * numCourses
 
-        for i in range(numCourses):
-            adjlist[i] = set()
-        
-        for i, j in prerequisites:
-            adjlist[i].add(j)
-        
+        def dfs(crs):
+            if visited[crs]:
+                return prereq[crs]
+            visited[crs] = True
+            new_set = set()
+            for pre in prereq[crs]:
+                new_set.update(dfs(pre))
+            prereq[crs].update(new_set)
+            return prereq[crs]
 
-        def bfs(crs):
-            q = deque()
-            q.append(crs)
-            path = set()
-
-            while q:
-                for i in range(len(q)):
-                    curr = q.popleft()
-                    for course in adjlist[curr]:
-                        if course not in path:
-                            path.add(course)
-                            q.append(course)
-                        # adjlist[curr].add(course)
-            adjlist[crs].update(path)
+        for crs in range(numCourses):
+            dfs(crs)
         res = []
-        for i in range(numCourses):
-            bfs(i)
-
         for pre, crs in queries:
-            if crs in adjlist[pre]:
+            if pre in  prereq[crs]:
                 res.append(True)
             else:
                 res.append(False)
