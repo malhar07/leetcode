@@ -4,7 +4,7 @@ class Solution:
         for crs, pre in prerequisites:
             prereq[crs].append(pre)
         path = set()
-        memo = {}
+        memo = set()
         
         def dfs(crs):
             if crs in path:
@@ -16,7 +16,7 @@ class Solution:
             for pre in prereq[crs]:
                 if not dfs(pre):
                     return False
-            memo[crs] = True
+            memo.add(crs)
             path.remove(crs)
             return True
             
