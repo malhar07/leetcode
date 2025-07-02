@@ -10,7 +10,7 @@ class Trie:
                 curr.children[char] = Trie()
 
             curr = curr.children[char]
-        curr.wordCount += 1
+            curr.wordCount += 1
 
     def search(self, prefix):
         curr = self
@@ -19,13 +19,14 @@ class Trie:
             if char not in curr.children:
                 return 0
             curr = curr.children[char]
-        def dfs(curr):
-            count = 0
+        return curr.wordCount
+        # def dfs(curr):
+        #     count = 0
 
-            for child in curr.children.values():
-                count += dfs(child)
-            return count + curr.wordCount
-        return dfs(curr)
+        #     for child in curr.children.values():
+        #         count += dfs(child)
+        #     return count + curr.wordCount
+        # return dfs(curr)
                 
                 
     
