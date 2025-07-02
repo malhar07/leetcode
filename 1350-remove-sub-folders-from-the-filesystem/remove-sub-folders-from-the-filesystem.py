@@ -13,23 +13,20 @@ class Trie:
             cur = cur.children[f]
         cur.end_of_folder = True
 
-    def prefix_search(self, path):
-        cur = self
-        folders = path.split("/")
-        for i in range(len(folders) - 1):
-            cur = cur.children[folders[i]]
-            if cur.end_of_folder:
-                return True
-        return False
-
 class Solution:
     def removeSubfolders(self, folder: List[str]) -> List[str]:
         trie = Trie()
         for f in folder:
             trie.add(f)
+
         res = []
-        
-        for f in folder:
-            if not trie.prefix_search(f):
-                res.append(f)
+
+        def dfs(node, path):
+            if node.end_of_folder:
+                res.append("/".join(path))
+                return  # Do not go deeper once a folder is saved
+            for name, child in node.children.items():
+                dfs(child, path + [name])
+
+        dfs(trie, [])
         return res
