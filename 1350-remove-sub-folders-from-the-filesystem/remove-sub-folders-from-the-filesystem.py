@@ -1,18 +1,17 @@
 class Solution:
     def removeSubfolders(self, folder: List[str]) -> List[str]:
-        dict1 = {}
+        folder_set = set()
+        folder.sort()
+
         for f in folder:
-            dict1[f] = f.split("/")[1:]
-        print(dict1)
-        
-        for f in folder:
-            s = ""
-            if len(dict1[f]) == 1:
-                continue
-            for i in dict1[f][:-1]:
-                s+="/" + i
-                if s in dict1:
-                    del dict1[f]
+            path = f.split('/')[1:]
+            sub_folder = ""
+            parent_folder_present = False
+            for file in path:
+                sub_folder += "/" + file
+                if sub_folder in folder_set:
+                    parent_folder_present = True
                     break
-            
-        return list(dict1.keys())
+            if not parent_folder_present:
+                folder_set.add(f)
+        return list(folder_set)
