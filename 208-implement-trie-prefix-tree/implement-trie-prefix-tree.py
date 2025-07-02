@@ -1,7 +1,7 @@
 class Node:
-    def __init__(self):
-        self.children = {}
-        self.isWord =  False
+    def __init__(self, children = None, isWord = False):
+        self.children = children if children != None else {}
+        self.isWord =  isWord
 class Trie:
 
     def __init__(self):
