@@ -1,16 +1,35 @@
+from typing import List
+
+class Trie:
+    def __init__(self):
+        self.children = {}  # string -> Trie
+        self.end_of_folder = False
+
+    def add(self, path):
+        cur = self
+        for f in path.split("/"):
+            if f not in cur.children:
+                cur.children[f] = Trie()
+            cur = cur.children[f]
+        cur.end_of_folder = True
+
+    def prefix_search(self, path):
+        cur = self
+        folders = path.split("/")
+        for i in range(len(folders) - 1):
+            cur = cur.children[folders[i]]
+            if cur.end_of_folder:
+                return True
+        return False
+
 class Solution:
     def removeSubfolders(self, folder: List[str]) -> List[str]:
-        folder_set = set(folder)
-        res = []
+        trie = Trie()
         for f in folder:
-            path = f.split('/')[1:-1]
-            sub_folder = ""
-            parent_folder_present = False
-            for file in path:
-                sub_folder += "/" + file
-                if sub_folder in folder_set:
-                    parent_folder_present = True
-                    break
-            if not parent_folder_present:
+            trie.add(f)
+        res = []
+        
+        for f in folder:
+            if not trie.prefix_search(f):
                 res.append(f)
-        return list(res)
+        return res
