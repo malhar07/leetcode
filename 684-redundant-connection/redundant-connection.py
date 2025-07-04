@@ -1,28 +1,34 @@
+class UnionFind:
+    def __init__(self):
+        self.parent = {}
+        self.rank = {}
+    def find(self, node):
+        if node not in self.parent:
+            self.parent[node] = node
+            self.rank[node] = 0
+        if self.parent[node] != node:
+            self.parent[node] = self.find(self.parent[node])
+        return self.parent[node]
+
+    def union(self,node1, node2):
+        root1, root2 = self.find(node1), self.find(node2)
+
+        if root1 == root2:
+            return 
+        if self.rank[root1] > self.rank[root2]:
+            self.parent[root2] = root1
+        if self.rank[root2] > self.rank[root1]:
+            self.parent[root1] = root2
+        else:
+            self.parent[root2] = root1
+            self.rank[root1] += 1
+
+        
+
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        parent = [i for i in range(len(edges)+1)]
-        rank = [1]*(len(edges)+1)
-        def get_parent(node):
-            while node != parent[node]:
-                node = parent[node]
-                parent[node] = parent[parent[node]]  # Path compression
-                
-            return node
-
-
-        for x,y in edges:
-            parent_x = get_parent(x)
-            parent_y = get_parent(y)
-            print(parent_x," ",parent_y)
-            if parent_x == parent_y:
-                return [x,y]
-            if rank[parent_x] >= rank[parent_y]:
-                parent[parent_y] = parent_x
-                rank[parent_x] += rank[parent_y]
-            else:
-                parent[parent_x] = parent_y
-                rank[parent_y] += rank[parent_x]
-            
-            
-            
-            
+        uf = UnionFind()
+        for v1, v2 in edges:
+            if uf.find(v1) == uf.find(v2):
+                return [v1, v2]
+            uf.union(v1,v2)
