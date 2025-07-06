@@ -6,7 +6,7 @@ class Solution:
         visited = set()
         total_cost = 0
 
-        while min_heap:
+        while len(visited) < len(points):
 
             weight, x, y = heapq.heappop(min_heap)
             if (x,y) in visited:
