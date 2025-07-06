@@ -9,20 +9,21 @@ class Solution:
         heapq.heappush(min_heap, [0,k])
         visited = set()
         total_time = {}
+        res = -1
 
         while min_heap:
-            # print(node)
             time, node  = heapq.heappop(min_heap)
             print(node)
             
             if node in visited:
                 continue
-            total_time[node] = time
+            res = max(res, time)
             visited.add(node)
 
             for nei, t in network[node]:
                 if nei not in visited:
                     heapq.heappush(min_heap,[time+t, nei])
+        return res if len(visited) == n else -1
         res = -1
         for i in range(1, n+1):
             if i not in total_time:
