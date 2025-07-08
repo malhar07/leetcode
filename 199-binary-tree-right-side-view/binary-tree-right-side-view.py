@@ -18,19 +18,20 @@ class Solution:
         #     dfs(root.right, level+1)
         # dfs(root,0)
         # return res
+
         if not root:
             return []
         res = []
-        q = deque([(root,0)])
+        q = deque([(root)])
 
         while q:
             for _ in range(len(q)):
-                node,level = q.popleft()
+                node = q.popleft()
                 last_node = node.val
 
                 if node.left:
-                    q.append((node.left, level+1))
+                    q.append(node.left)
                 if node.right:
-                    q.append((node.right, level+1))
+                    q.append(node.right)
             res.append(last_node)
         return res
