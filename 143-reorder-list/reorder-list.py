@@ -9,46 +9,40 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
 
-        def reverse(head):
-            if not head:
-                return None
-            
-            prev = temp = None
-
-            while head:
-                temp = head.next
-                head.next = prev
-                prev = head
-                head = temp
+        def reverse_list( node):
+            prev = None
+            curr = node
+            while curr:
+                temp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = temp                
             return prev
-
 
         if not head:
             return None
+
+        fast = head.next
         slow = head
-        fast = slow.next
-        #1) partition list in half
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        fast = slow.next
+
+        second_half = slow.next
         slow.next = None
-        
-        #2)reverse the second half
-        list2 = reverse(fast)
 
-        #3) Merge Alternately
-        list1 = head
+        l2 = reverse_list(second_half)
+        l1 = head
 
-        while list1 and list2:
-            temp = list2.next
-
-            list2.next = list1.next
-            list1.next = list2
-
-            list2 = temp
-            list1 = list1.next.next
+        while l2:
+            temp = l2.next
+            l2.next = l1.next
+            l1.next = l2
+            l2 = temp
+            l1 = l1.next.next
         return head
+
 
 
 
