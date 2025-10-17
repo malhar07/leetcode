@@ -6,11 +6,10 @@
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        hashset = set()
-
+        nodes = set()
         while head:
-            if head in hashset:
+            if head in nodes:
                 return True
-            hashset.add(head)
+            nodes.add(head)
             head=head.next
         return False
