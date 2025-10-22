@@ -1,29 +1,16 @@
-# class Solution:
-#     def majorityElement(self, nums: List[int]) -> int:
-#         count = 0
-#         element = -1
-#         for i in range(len(nums)):
-#             if count == 0:
-#                 element = nums[i]
-#             if nums[i] == element:
-#                 count+=1
-#             else:
-#                 count-=1
-            
-#         return element
-
-
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        count = 0
-        element = -1
-        for i in range(len(nums)):
-            if count == 0:
-                element = nums[i]
-                # count+=1
-            if nums[i] == element:
-                count+=1
+        curr_majority_ele = nums[0]
+        curr_count = 1
+
+        for num in nums[1:]:
+            if curr_count == 0:
+                curr_count+=1
+                curr_majority_ele = num
             else:
-                count-=1
-            
-        return element
+
+                if num == curr_majority_ele:
+                    curr_count += 1
+                else:
+                    curr_count -= 1
+        return curr_majority_ele
