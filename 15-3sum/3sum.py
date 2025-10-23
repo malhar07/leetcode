@@ -5,6 +5,8 @@ class Solution:
         nums.sort()
 
         for ind, num in enumerate(nums):
+            if num>0:
+                break
             if ind>0 and nums[ind] == nums[ind-1]:
                 continue
             left = ind + 1
