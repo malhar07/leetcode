@@ -1,9 +1,6 @@
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        # print(path.split('/'))
-        # return ""
         stack = path.split('/')
-
         res = []
 
         for folder in stack:
