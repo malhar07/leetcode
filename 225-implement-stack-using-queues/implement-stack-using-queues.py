@@ -3,26 +3,25 @@ class MyStack:
 
     def __init__(self):
         self.q = queue.Queue()
-        # self.top = None
+
 
     def push(self, x: int) -> None:
         self.q.put(x)
 
     def pop(self) -> int:
         temp = queue.Queue()
+
         while self.q.qsize()>1:
             temp.put(self.q.get())
-
         top = self.q.get()
         self.q = temp
         return top
 
-
     def top(self) -> int:
         temp = queue.Queue()
+
         while self.q.qsize()>1:
             temp.put(self.q.get())
-
         top = self.q.get()
         temp.put(top)
         self.q = temp
@@ -30,7 +29,7 @@ class MyStack:
         
 
     def empty(self) -> bool:
-        return self.q.qsize() == 0
+        return self.q.empty()
 
 
 # Your MyStack object will be instantiated and called as such:
