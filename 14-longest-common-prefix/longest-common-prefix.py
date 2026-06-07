@@ -1,11 +1,14 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        prefix = ""
-        # curr_char = strs[0][0]
+        prefix = strs[0]
+        for i in range(1, len(strs)):
+            for ind, char in enumerate(prefix):
+                if ind < len(strs[i]):
+                    if char != strs[i][ind]:
+                        prefix = prefix[:ind]
+                        break
 
-        for ind, curr_char in enumerate(strs[0]):
-            for word in strs:
-                if ind>=len(word) or word[ind] != curr_char:
-                    return prefix
-            prefix+=curr_char
+                else:
+                    prefix = prefix[:ind]
+                    break
         return prefix
