@@ -1,18 +1,19 @@
 class MyHashMap:
 
     def __init__(self):
-        self.hashmap = [-1]*((10**6)+1)
-        
+        self.dict1 = {}
 
     def put(self, key: int, value: int) -> None:
-        self.hashmap[key] = value
-        
+        self.dict1[key] = value
 
     def get(self, key: int) -> int:
-        return self.hashmap[key] if self.hashmap[key] != -1 else -1
+        if key in self.dict1:
+            return self.dict1[key]
+        return -1
 
     def remove(self, key: int) -> None:
-        self.hashmap[key] = -1
+        if key in self.dict1:
+            del self.dict1[key]
 
 
 # Your MyHashMap object will be instantiated and called as such:
