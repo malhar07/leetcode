@@ -3,21 +3,30 @@ class Solution:
         stack = []
 
         for char in s:
-            if char != "]":
-                stack.append(char)
-            else:
-                word = ""
+            if char == "]":
+                string1 = ""
                 num = ""
-                while stack and stack[-1] != "[":
-                    word+=stack.pop()[::-1]
-                word = word[::-1]
+                # Get full char string
+                while stack and stack[-1].isalpha():
+                    string1 += stack.pop()
+                string1 = string1[::-1]
+
+                #Pop out "["
                 stack.pop()
-                while stack and stack[-1].isdigit():
+
+                #Get full number
+                while stack and stack[-1].isnumeric():
                     num += stack.pop()
                 num = int(num[::-1])
-                word = word*num
-                stack.append(word)
+                string2 = string1*num
+
+                #Append reverse string
+                stack.append(string2[::-1])
+
+            else:
+                stack.append(char)
+        # print(stack)
         res = ""
-        for w in stack:
-            res += w
+        for s in stack:
+            res += s[::-1]
         return res
