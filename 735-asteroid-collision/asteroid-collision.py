@@ -3,18 +3,18 @@ class Solution:
         stack = []
 
         for a in asteroids:
-            if a < 0:
-                to_append = True
-                while stack and stack[-1]>0:
-                    a2 = stack.pop()
-                    if a2 > abs(a):
-                        stack.append(a2)
-                        to_append = False
+            if stack and stack[-1] > 0 and a < 0:
+                while stack and stack[-1] > 0:
+                    if abs(a) > abs(stack[-1]):
+                        stack.pop()
+                    elif abs(a) == abs(stack[-1]):
+                        stack.pop()
+                        a = 0
                         break
-                    elif a2 == abs(a):
-                        to_append = False
+                    else:
                         break
-                if to_append:
+                
+                if (not stack or stack[-1] < 0) and a!=0:
                     stack.append(a)
             else:
                 stack.append(a)
