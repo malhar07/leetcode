@@ -1,8 +1,7 @@
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         left = 0
-        right= len(nums)-1
-        res = -1
+        right = len(nums)-1
 
         while left <= right:
             mid = left + (right-left)//2
@@ -10,8 +9,7 @@ class Solution:
             if nums[mid] > target:
                 right = mid-1
             elif nums[mid] < target:
-                res = mid
                 left = mid+1
             else:
                 return mid
-        return res + 1
+        return left
