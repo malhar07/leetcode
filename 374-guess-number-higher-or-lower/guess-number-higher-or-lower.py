@@ -12,12 +12,13 @@ class Solution:
 
         while left <= right:
             mid = left + (right-left)//2
-            guess_output = guess(mid)
 
-            if guess_output == 0:
-                return mid
-            elif guess_output == 1:
+            g = guess(mid)
+
+            if  g == -1:
+                right = mid-1
+            elif g == 1:
                 left = mid+1
             else:
-                right = mid-1
+                return mid
         
