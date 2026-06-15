@@ -9,21 +9,27 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        node_map = {None:None}
+        if not head:
+            return
+        head2 = ListNode(head.val)
+
+        node_dict = {head:head2, None:None}
+        temp2 = head2
         temp = head
-        while head:
-            new_node = Node(head.val)
-            node_map[head] = new_node
-            head = head.next
-        new_head = node_map[temp]
-        head = temp
-        # print(head.val)
-        while temp:
-            # print(temp.random.val)
-            new_head.next = node_map[temp.next]
-            new_head.random = node_map[temp.random]
 
-            new_head = new_head.next
+        while temp.next:
+            node = ListNode(temp.next.val)
+            temp2.next = node
+
+
+
             temp = temp.next
-        return node_map[head]
+            temp2 = temp2.next
+            node_dict[temp] = temp2
 
+        for key, val in node_dict.items():
+            if val:
+                val.random = node_dict[key.random]
+        return head2
+
+        
