@@ -8,42 +8,35 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-
-        def reverse_list( node):
-            prev = None
-            curr = node
-            while curr:
-                temp = curr.next
-                curr.next = prev
-                prev = curr
-                curr = temp                
-            return prev
-
-        if not head:
-            return None
-
-        fast = head.next
         slow = head
+        fast = head.next
 
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
-        second_half = slow.next
+        head2 = slow.next
         slow.next = None
 
-        l2 = reverse_list(second_half)
-        l1 = head
+        #Reverse the second half
+        prev = None
+        temp = curr = head2
 
-        while l2:
-            temp = l2.next
-            l2.next = l1.next
-            l1.next = l2
-            l2 = temp
-            l1 = l1.next.next
-        return head
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        head2 = prev
 
+        res = head
+        temp = head
+        temp2 = head2
+        while head2:
+            head2 = temp2.next
+            temp2.next = temp.next
+            temp.next = temp2
 
-
-
-        
+            temp = temp.next.next
+            temp2 = head2
+        return res
