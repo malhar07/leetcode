@@ -17,6 +17,7 @@ class Solution:
             self.count += 1
             if self.count == k:
                 self.res = root.val
+                return
 
             right = inorder(root.right)
 
