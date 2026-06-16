@@ -1,31 +1,24 @@
 class Solution:
     def getOrder(self, tasks: List[List[int]]) -> List[int]:
-        heap = []
+        arr = []
+        for ind, t in enumerate(tasks):
+            arr.append([t[0], t[1], ind])
+        tasks = arr
+        heapq.heapify(tasks)
         res = []
-        curr_time = 0
-        for i in range(len(tasks)):
-            tasks[i] = tasks[i] + [i]
-        tasks.sort(key = lambda x: x[0])
+        process = [] #[processing_time, ind]
 
-        ind = 0
-        curr_time = tasks[0][0]
-        while heap or ind < len(tasks):
-            print(curr_time)
-            
-            while ind < len(tasks) and tasks[ind][0] <= curr_time:
-                heapq.heappush(heap, [tasks[ind][1], tasks[ind][2]])
-                ind+=1
-            if not heap:
-                curr_time = tasks[ind][0]
-            else:
-                proc_time, index = heapq.heappop(heap)
-                # print(proc_time, " ", index)
-                res.append(index)
-                curr_time += proc_time
-            # if not heap and ind<len(tasks):
-            #     curr_time = max(curr_time, tasks[ind][0])
-        
+        # curr_time = tasks[0][0]
+        curr_time = 1
+        while tasks or process:
+            # curr_time += 
+            if not process and curr_time < tasks[0][0]:
+                curr_time = tasks[0][0]
+
+            while tasks and tasks[0][0] <= curr_time:
+                enq_t, proc_t, ind = heapq.heappop(tasks)
+                heapq.heappush(process, [proc_t, ind])
+            proc_t, ind = heapq.heappop(process)
+            res.append(ind)
+            curr_time += proc_t
         return res
-
-
-
