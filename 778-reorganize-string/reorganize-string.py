@@ -23,9 +23,6 @@ class Solution:
             if count2 < 0:
                 heapq.heappush(arr, [count2, char2])
         if arr:
-            if abs(arr[0][0]) > 1:
-                return ""
-            else:
-                return res+arr[0][1]
+            return res+arr[0][1]
         return res
         
