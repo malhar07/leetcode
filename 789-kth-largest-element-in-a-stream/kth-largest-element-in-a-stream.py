@@ -4,23 +4,19 @@ class KthLargest:
         self.heap = []
         self.k = k
 
-        for i in range(len(nums)):
-            if len(self.heap)<k:
-                heapq.heappush(self.heap,nums[i])
-            else:
-                if self.heap[0] < nums[i]:
-                    heapq.heappop(self.heap)
-                    heapq.heappush(self.heap, nums[i])
+        for num in nums:
+            heapq.heappush(self.heap, num)
 
+            if len(self.heap) > k:
+                heapq.heappop(self.heap)
 
     def add(self, val: int) -> int:
-        if len(self.heap) < self.k:
-            heapq.heappush(self.heap,val)
-            return self.heap[0]
-        if self.heap[0] < val:
+        heapq.heappush(self.heap, val)
+
+        if len(self.heap)>self.k:
             heapq.heappop(self.heap)
-            heapq.heappush(self.heap, val)     
         return self.heap[0]
+
 
 # Your KthLargest object will be instantiated and called as such:
 # obj = KthLargest(k, nums)
