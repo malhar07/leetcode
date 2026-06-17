@@ -3,43 +3,52 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-
-        que = deque()
-        rows, cols = len(board), len(board[0])
-        dirs = [[0,1], [1,0], [0,-1], [-1,0]]
-
-        for i in range(rows):
-            if board[i][0] == "O":
-                que.append((i,0))
-            if board[i][cols-1] == "O":
-                que.append((i, cols-1))
-        for i in range(1,cols):
-            if board[0][i] == "O":
-                que.append((0,i))
-            if board[rows-1][i] == "O":
-                que.append((rows-1,i))
+        q = deque()
+        visited = set()
+        directions = [[0,1], [1,0], [0,-1], [-1,0]]
+        for r in range(len(board)):
+            if board[r][0] == "O":
+                q.append((r,0))
+                visited.add((r,0))
+            if board[r][-1] == "O":
+                q.append((r,len(board[0])-1))
+                visited.add((r,len(board[0])-1))
+            
+        for c in range(len(board[0])):
+            if board[0][c] == "O":
+                q.append((0,c))
+                visited.add((0,c))
+            if board[-1][c] == "O":
+                q.append((len(board)-1,c))
+                visited.add((len(board)-1,c))
         
-        def bfs(que):
-            visited = set()
+        def bfs(q):
 
-            visited.update(que)
+            while q:
+                r,c = q.popleft()
+                board[r][c] = "M"
 
-            while que:
-                r,c = que.popleft()
-
-                for dr, dc in dirs:
+                for dr, dc in directions:
                     newr, newc = r+dr, c+dc
+                    if 0<=newr<len(board) and 0<=newc<len(board[0]) and (newr, newc) not in visited and board[newr][newc] == "O":
+                        q.append((newr,newc))
+                        visited.add((newr, newc))
 
-                    if 0<=newr<rows and 0<=newc<cols and (newr,newc) not in visited and board[newr][newc]=="O":
-                        que.append((newr,newc))
-                        visited.add((newr,newc))
-            return visited
-        visited = bfs(que)
-        for i in range(rows):
-            for j in range(cols):
-                if board[i][j] == "O" and (i,j) not in visited:
-                    print("kkkk")
-                    board[i][j] = "X"
+        bfs(q)
+        print(board)
+        for r in range(len(board)):
+            for c in range(len(board[0])):
+                if board[r][c] == "O":
+                    board[r][c] = "X"
+                if board[r][c] == "M":
+                    board[r][c] = "O"
         
 
-        
+
+        # ["X","X","X","X","O"],
+        # ["X","O","O","X","X"],
+        # ["O","X","X","X","X"]]
+
+        # ["X","X","O","X","O"]
+        # ["X","O","O","X","X"]
+        # ["O","X","X","X","X"]]
