@@ -26,7 +26,7 @@ class Solution:
 
         for r in range(len(grid)):
             for c in range(len(grid[0])):
-                if grid[r][c] == 1:
+                if grid[r][c] == 1 and (r,c) not in visited:
                     visited.add((r,c))
                     res = max(res, bfs(r,c))
         return res
