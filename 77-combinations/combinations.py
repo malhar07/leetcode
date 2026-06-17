@@ -1,16 +1,17 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        res = []
-        def helper(arr, ind):
-            if len(arr) == k:
-                res.append(arr[:])
+        output = []
+
+        def backtrack(ind, res):
+            if len(res) == k:
+                output.append(res.copy())
                 return
-            if ind > n:
+            if ind>n:
                 return
-            
-            arr.append(ind)
-            helper(arr,ind+1)
-            arr.pop()
-            helper(arr, ind+1)
-        helper([],1)
-        return res
+            res.append(ind)
+            backtrack(ind+1, res)
+
+            res.pop()
+            backtrack(ind+1, res)
+        backtrack(1,[])
+        return output            
