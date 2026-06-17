@@ -3,25 +3,25 @@ class Solution:
         candidates.sort()
         res = []
 
-        def helper(arr,ind):
-            if sum(arr) == target:
-                res.append(arr[:])
-                return
-            if sum(arr) > target:
-                # res.append(arr[:])
-                return
-            if ind >= len(candidates):
+        def backtrack(ind,arr, total):
+            
+            if total == target:
+                res.append(arr.copy())
                 return
             
+            if ind >= len(candidates) or total > target:
+                return
+                
             arr.append(candidates[ind])
-            helper(arr,ind+1)
+
+            backtrack(ind+1, arr, total+arr[-1])
+            
             arr.pop()
-            while ind<len(candidates)-1 and candidates[ind] == candidates[ind+1]:
+
+            while ind+1 < len(candidates) and candidates[ind] == candidates[ind+1]:
                 ind+=1
             
-            helper(arr,ind+1)
-            
+            backtrack(ind+1, arr, total)
+        backtrack(0, [], 0)
 
-
-        helper([],0)
         return res
