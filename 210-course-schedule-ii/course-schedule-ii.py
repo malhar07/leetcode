@@ -1,27 +1,32 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        adjlist = {crs:[] for crs in range(numCourses)}
+        premap = {i:[] for i in range(numCourses)}
 
         for crs, pre in prerequisites:
-            adjlist[crs].append(pre)
+            premap[crs].append(pre)
         res = []
-
+        visited = set()
+        processed = set()
         def dfs(crs):
-            if state[crs] == 1:
+            if crs in visited:
                 return False
-            if state[crs] == 2:
-                return True
-            state[crs] = 1
-            for pre in adjlist[crs]:
-                if not dfs(pre):
+
+            visited.add(crs)
+            
+            for nei in premap[crs]:
+                if nei in processed:
+                    continue
+                if not dfs(nei):
                     return False
-            state[crs]=2
-            res.append(crs)
+            if crs not in processed:
+                res.append(crs)
+                processed.add(crs)
+            visited.remove(crs)
+
             return True
-
-
-        state = [0]*numCourses # 0=unvisited 1=visiting 2=visited
+        
         for crs in range(numCourses):
-            if not dfs(crs):
-                return []
-        return res
+            if crs not in processed:
+                if not dfs(crs):
+                    return []
+        return res            
