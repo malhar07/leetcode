@@ -1,27 +1,34 @@
 class Solution:
     def findMaxFish(self, grid: List[List[int]]) -> int:
-        max_count = 0
+        max_fish = 0
+        rows, cols = len(grid), len(grid[0])
+        directions = [[0,1], [1,0], [0,-1], [-1,0]]
         visited = set()
-        dirs = [[0,1], [1,0], [-1,0], [0,-1]]
 
-        def is_valid_neighbor(newr, newc):
-            if 0<=newr<len(grid) and 0<=newc<len(grid[0]) and grid[newr][newc]>0 and (newr,newc) not in visited:
-                return True
-            return False
+        def bfs(row, col):
+            q=deque()
+            q.append((row, col))
+            curr_fish = 0
+
+            while q:
+                r,c = q.popleft()
+                curr_fish+=grid[r][c]
+
+                for dr, dc in directions:
+                    newr, newc = r+dr, c+dc
+
+                    if 0<=newr<rows and 0<=newc<cols and (newr,newc) not in visited and grid[newr][newc] > 0:
+                        q.append((newr, newc))
+                        visited.add((newr,newc))
+            return curr_fish
+                    
 
 
-        def dfs(r,c):
-            visited.add((r,c))
-            total = grid[r][c]
-            for dr, dc in dirs:
-                newr, newc = r+dr, c+dc
-                if is_valid_neighbor(newr, newc):
-                
-                    total+=dfs(newr, newc)
-            return total 
 
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
+        
+        for r in range(rows):
+            for c in range(cols):
                 if grid[r][c] > 0 and (r,c) not in visited:
-                    max_count = max(max_count, dfs(r,c))
-        return max_count
+                    visited.add((r,c))
+                    max_fish = max(max_fish, bfs(r,c))
+        return max_fish
