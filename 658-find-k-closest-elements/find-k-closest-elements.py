@@ -9,3 +9,6 @@ class Solution:
             else:
                 left +=1
         return arr[left:right+1]
+
+
+# [1,1,2,3,4,5,6,7,]
