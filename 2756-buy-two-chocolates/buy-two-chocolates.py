@@ -7,6 +7,6 @@ class Solution:
                 lowest[0] = p
             elif p<lowest[1]:
                 lowest[1] = p
-        if sum(lowest) > money:
+        if lowest[0] + lowest[1] > money:
             return money
-        return money - sum(lowest)
+        return money - (lowest[0] + lowest[1])
