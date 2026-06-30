@@ -1,39 +1,42 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
+        directions = [[0,1], [1,0], [0,-1], [-1,0]]
+        rows, cols = len(board), len(board[0])
         visited = set()
-        path = set()
-        # self.length = len(word)
-        self.found = False
 
-        def dfs(r,c, ind):
-
-            # if
-            # print(board[r][c])
-
-            if board[r][c] != word[ind]:
-                path.remove((r,c))
+        def checkNextChar(row, col, ind):
+            if row < 0 or row>= len(board) or col < 0 or col >= len(board[0]):
                 return False
-            else:
-                # if ind == self.length-1:
-                if ind == len(word)-1:
-                    print("word Found")
-                    self.found = True
-                    return True
-                directions = [[0,1], [0,-1], [1,0], [-1,0]]
-                for dr, dc in directions:
-                    if 0<= r+dr < len(board) and 0<= c+dc < len(board[0]) and (r+dr, c+dc) not in path:
-                        path.add((r+dr,c+dc))
-                        dfs(r+dr, c+dc, ind+1)
-                path.remove((r,c))
-                
+            if (row, col) in visited:
                 return False
+            if board[row][col] != word[ind]:
+                return False
+            return True
+            
+
+        def backtrack(r,c,i):
+            if i == len(word)-1:
+                return True
+            visited.add((r,c))
 
 
-        for row in range(len(board)):
-            for col in range(len(board[0])):
-                if board[row][col] == word[0]:
-                    # path = set()
-                    path.add((row, col))
-                    dfs(row, col, 0)
-                    # path.remove((row, col))
-        return self.found
+            for dr, dc in directions:
+                newr, newc = r+dr, c+dc
+                if checkNextChar(newr, newc, i+1):
+                    if backtrack(newr, newc, i+1):
+                        return True
+
+            visited.remove((r,c))
+            return False
+
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == word[0]:
+                    if backtrack(r,c,0):
+                        return True
+        return False
+
+
+        ["C","A","A"]
+        ["A","A","A"]
+        ["B","C","D"]
