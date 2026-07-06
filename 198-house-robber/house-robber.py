@@ -1,19 +1,17 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        # memo = [-1]*len(nums)
+        n = len(nums)
+        memo = [-1] * len(nums)
 
-        # def helper(ind):
-        #     if ind>=len(nums):
-        #         return 0
-        #     if memo[ind]==-1:
-        #         memo[ind] = max(helper(ind+1), nums[ind]+helper(ind+2))
-        #     return memo[ind]
-        # return helper(0)
-        if len(nums) == 1:
-            return nums[0]
-        dp = [nums[-2], nums[-1]]
-        for i in range(len(nums)-3, -1, -1):
-            curr = max(nums[i] + dp[1], dp[0])
-            dp[1], dp[0] = max(dp[0],dp[1]), curr
-        return max(dp)
+        def dfs(ind):
+            if ind>=n:
+                return 0
+            if memo[ind] != -1:
+                return memo[ind]
+            rob_curr = nums[ind] + dfs(ind+2)
+            skip = dfs(ind+1)
+            if memo[ind] == -1:
+                memo[ind] = max(skip, rob_curr)
+            return memo[ind]
+        return dfs(0)
             
