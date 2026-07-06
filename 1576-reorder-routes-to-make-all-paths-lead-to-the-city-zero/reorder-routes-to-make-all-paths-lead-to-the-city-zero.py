@@ -1,15 +1,13 @@
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        con = set()
         adjlist = defaultdict(list)
         res = 0
 
         for n1, n2 in connections:
-            adjlist[n1].append([n2,1])
-            adjlist[n2].append([n1,0])
+            adjlist[n1].append((n2,1))
+            adjlist[n2].append((n1,0))
 
-            con.add((n1,n2))
-        
+
         q = deque([(0,-1)]) #curr, parent
 
 
