@@ -19,9 +19,7 @@ class Solution:
             for nei, cost in adjlist[curr]:
                 if nei == parent:
                     continue
-                # if (curr,nei) in con:
                 res+=cost
-                # visited.add(nei)
                 q.append((nei, curr))
         return res
                 
