@@ -1,26 +1,28 @@
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        routes = set()
+        con = set()
         adjlist = defaultdict(list)
         res = 0
         visited = set()
+
+        for n1, n2 in connections:
+            adjlist[n1].append(n2)
+            adjlist[n2].append(n1)
+
+            con.add((n1,n2))
+        
+        q = deque([0])
         visited.add(0)
 
-        for c1, c2 in connections:
-            routes.add((c1,c2))
-            adjlist[c1].append(c2)
-            adjlist[c2].append(c1)
-
-        q = deque([0])
-
         while q:
-            city = q.popleft()
+            curr = q.popleft()
 
-            for nei in adjlist[city]:
+            for nei in adjlist[curr]:
                 if nei in visited:
                     continue
-                if (nei,city) not in routes:
-                    res += 1
-                q.append(nei)
+                if (curr,nei) in con:
+                    res+=1
                 visited.add(nei)
+                q.append(nei)
         return res
+                
