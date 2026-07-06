@@ -11,18 +11,18 @@ class Solution:
 
             con.add((n1,n2))
         
-        q = deque([0])
+        q = deque([(0,-1)]) #curr, parent
         visited.add(0)
 
         while q:
-            curr = q.popleft()
+            curr, parent = q.popleft()
 
             for nei in adjlist[curr]:
-                if nei in visited:
+                if nei == parent:
                     continue
                 if (curr,nei) in con:
                     res+=1
                 visited.add(nei)
-                q.append(nei)
+                q.append((nei, curr))
         return res
                 
