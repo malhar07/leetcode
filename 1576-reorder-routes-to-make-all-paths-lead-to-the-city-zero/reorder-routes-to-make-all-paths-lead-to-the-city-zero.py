@@ -7,9 +7,7 @@ class Solution:
             adjlist[n1].append((n2,1))
             adjlist[n2].append((n1,0))
 
-
         q = deque([(0,-1)]) #curr, parent
-
 
         while q:
             curr, parent = q.popleft()
@@ -20,4 +18,3 @@ class Solution:
                 res+=cost
                 q.append((nei, curr))
         return res
-                
