@@ -15,15 +15,20 @@ class Solution:
         #     return memo[ind]
         # return dfs(0)
 
-        memo = [0] * (len(nums) + 2)
 
 
+
+        # memo = [0] * (len(nums) + 2)
+
+
+        # for i in range(len(nums)-1,-1,-1):
+        #     curr = max((nums[i] + memo[i+2]), memo[i+1])
+        #     memo[i] = curr
+        # return memo[0]
+
+        memo = [0,0]
         for i in range(len(nums)-1,-1,-1):
-            curr = max((nums[i] + memo[i+2]), memo[i+1])
-            memo[i] = curr
+            curr = max((nums[i] + memo[1]), memo[0])
+            memo[1] = memo[0]
+            memo[0] = curr
         return memo[0]
-
-
-
-
-            
